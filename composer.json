@@ -1,0 +1,14 @@
+{
+    "name": "tkouleris/crud-panel",
+    "description": "Create Models, Migrations, Controllers and Repositories with simple click",
+    "type": "library",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "darkheart101",
+            "email": "kurokokoro@windowslive.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
