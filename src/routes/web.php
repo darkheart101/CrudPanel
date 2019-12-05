@@ -1,5 +1,5 @@
 <?php
 
 Route::get('crudpanel', function(){
-    return 'crudpanel';
+    return view('CrudPanel::crud_panel_index');
 });
