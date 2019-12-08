@@ -5,9 +5,11 @@ namespace tkouleris\CrudPanel\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
+use tkouleris\CrudPanel\Models\ModelFile;
 
 class CrudPanelController extends Controller
 {
+    // View Controllers
     public function index()
     {
         return view('CrudPanel::crud_panel_index');
@@ -18,12 +20,8 @@ class CrudPanelController extends Controller
         return view('CrudPanel::crud_panel_models');
     }
 
-    public function testIndex()
-    {
-        return view('CrudPanel::crud_panel_testIndex');
-    }
-
-    public function create_model(Request $request)
+    // Other Requests
+    public function create_model(Request $request, ModelFile $mf)
     {
         if(($request->model_name == null) || (!$request->has('model_name')) )
         {
@@ -40,6 +38,18 @@ class CrudPanelController extends Controller
 
         Artisan::call('make:model '.$request->model_name);
         $message = Artisan::output();
+
+        $model = $mf::where('ModelFileName',$request->model_name)->first();
+
+        if( $model == null)
+        {
+            $data = [
+                'ModelFileName' =>$request->model_name
+            ];
+            $record = $mf::create($data);
+            dd($record);
+        }
+
 
         $results['success'] = true;
         $results['message'] = $message;

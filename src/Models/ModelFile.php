@@ -19,4 +19,13 @@ class ModelFile extends Model
      * @var string
      */
     protected $primaryKey = 'ModelFileId';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'ModelFileName'
+    ];
 }
