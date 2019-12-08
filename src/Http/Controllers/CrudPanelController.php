@@ -13,6 +13,16 @@ class CrudPanelController extends Controller
         return view('CrudPanel::crud_panel_index');
     }
 
+    public function modelsIndex()
+    {
+        return view('CrudPanel::crud_panel_models');
+    }
+
+    public function testIndex()
+    {
+        return view('CrudPanel::crud_panel_testIndex');
+    }
+
     public function create_model(Request $request)
     {
         if(($request->model_name == null) || (!$request->has('model_name')) )

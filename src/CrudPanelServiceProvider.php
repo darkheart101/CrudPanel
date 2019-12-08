@@ -12,6 +12,10 @@ class CrudPanelServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/routes/web.php');
         $this->loadViewsFrom(__DIR__.'/views','CrudPanel');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+
+        $this->publishes([
+            __DIR__.'public' => public_path('vendor/CrudPanel/public'),
+        ], 'public');
     }
 
     public function register()
