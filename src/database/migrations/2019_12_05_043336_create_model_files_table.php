@@ -13,8 +13,9 @@ class CreateModelFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('model_files', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('cp_model_files', function (Blueprint $table) {
+            $table->bigIncrements('ModelFileId');
+            $table->string('ModelFileName');
             $table->timestamps();
         });
     }
