@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModelFilesTable extends Migration
+class CpMigrationFiles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateModelFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cp_model_files', function (Blueprint $table) {
-            $table->bigIncrements('ModelFileId');
-            $table->string('ModelFileName');
+        Schema::create('cp_migration_files', function (Blueprint $table) {
+            $table->bigIncrements('MigrationFileId');
+            $table->string('MigrationFileName');
+            $table->bigInteger('MigrationModelId');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ class CreateModelFilesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cp_model_files');
+        Schema::dropIfExists('cp_migration_files');
     }
 }
