@@ -12,7 +12,8 @@ class CrudPanelController extends Controller
     // View Controllers
     public function index()
     {
-        return view('CrudPanel::crud_panel_index');
+        $modelFiles = ModelFile::all()->take(5);
+        return view('CrudPanel::crud_panel_index',compact('modelFiles'));
     }
 
     public function modelsIndex()
@@ -36,9 +37,6 @@ class CrudPanelController extends Controller
             return $results;
         }
 
-        Artisan::call('make:model '.$request->model_name);
-        $message = Artisan::output();
-
         $model = $mf::where('ModelFileName',$request->model_name)->first();
 
         if( $model == null)
@@ -47,8 +45,10 @@ class CrudPanelController extends Controller
                 'ModelFileName' =>$request->model_name
             ];
             $record = $mf::create($data);
-            dd($record);
         }
+
+        Artisan::call('make:model '.$request->model_name);
+        $message = Artisan::output();
 
 
         $results['success'] = true;

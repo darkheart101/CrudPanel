@@ -105,9 +105,9 @@
                     <div class="col-md-3">
                         <div class="list-group" >
                             <h3>Models</h3>
-                            {{-- @foreach($books as $book)
-                            <button type="button" data-bookid="{{ $book->id }}" name="book_row" class="list-group-item list-group-item-action">{{ $book->title }}</button>
-                            @endforeach --}}
+                            @foreach($modelFiles as $model)
+                                <div>{{ $model->ModelFileName }}</div>
+                            @endforeach
                             <div class="btn-group" role="group" aria-label="Basic example" style="padding-top:5px;">
                                 <button type="button" class="btn btn-success" id="btn_new_model" data-toggle="modal" data-target="#model_form">Add </button>
                                 <button type="button" class="btn btn-secondary"  id="btn_edit_model">Edit</button>
