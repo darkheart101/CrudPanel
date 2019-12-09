@@ -44,11 +44,17 @@ class CrudPanelController extends Controller
             $data = [
                 'ModelFileName' =>$request->model_name
             ];
-            $record = $mf::create($data);
+            $model_record = $mf::create($data);
         }
 
         Artisan::call('make:model '.$request->model_name);
         $message = Artisan::output();
+
+        if( $request->create_migration == 1)
+        {
+            Artisan::call('make:migration create_'.$request->model_name.'_table');
+            $message .= Artisan::output();
+        }
 
 
         $results['success'] = true;

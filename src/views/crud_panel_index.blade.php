@@ -14,7 +14,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
         <!-- Font Awesome -->
-        <link href="{{ asset('css/all.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('crud_panel/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
         <!-- Fonts -->
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -172,6 +172,10 @@
                             </div>
                             <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="cp_model_name" id="cp_model_name">
                         </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="chk_migration" name="chk_migration">
+                            <label class="form-check-label" for="chk_migration">create migration </label>
+                          </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" name="btn_save_model" id="btn_save_model">Save Model</button>
@@ -195,10 +199,14 @@
                     var model_name = $('input[name=cp_model_name]').val();
                     var _token = $('[name=_token]').val();
 
+                    var el_migration = $('input[name=chk_migration]')
+                    var create_migration = 0
+                    if(el_migration.is(":checked")) create_migration = 1;
+
                     jQuery.ajax({
                         url: "model/create",
                         method: 'post',
-                        data: { _token: _token, model_name: model_name },
+                        data: { _token: _token, model_name: model_name, create_migration: create_migration },
                         success: function(response)
                         {
                             el_model_form.modal('hide');
