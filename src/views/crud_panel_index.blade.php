@@ -175,7 +175,11 @@
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="chk_migration" name="chk_migration">
                             <label class="form-check-label" for="chk_migration">create migration </label>
-                          </div>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="chk_controller" name="chk_controller">
+                            <label class="form-check-label" for="chk_controller">create controller </label>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" name="btn_save_model" id="btn_save_model">Save Model</button>
@@ -203,10 +207,20 @@
                     var create_migration = 0
                     if(el_migration.is(":checked")) create_migration = 1;
 
+                    var el_controller = $('input[name=chk_controller]')
+                    var create_controller = 0
+                    if(el_controller.is(":checked")) create_controller = 1;
+
                     jQuery.ajax({
                         url: "model/create",
                         method: 'post',
-                        data: { _token: _token, model_name: model_name, create_migration: create_migration },
+                        data:
+                        {
+                            _token: _token,
+                            model_name: model_name,
+                            create_migration: create_migration,
+                            create_controller: create_controller
+                        },
                         success: function(response)
                         {
                             el_model_form.modal('hide');

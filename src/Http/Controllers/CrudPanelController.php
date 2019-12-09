@@ -56,6 +56,12 @@ class CrudPanelController extends Controller
             $message .= Artisan::output();
         }
 
+        if( $request->create_controller == 1)
+        {
+            Artisan::call('make:controller '.$request->model_name.'Controller');
+            $message .= Artisan::output();
+        }
+
 
         $results['success'] = true;
         $results['message'] = $message;
