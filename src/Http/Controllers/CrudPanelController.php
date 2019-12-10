@@ -5,6 +5,7 @@ namespace tkouleris\CrudPanel\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
+use tkouleris\CrudPanel\Models\MigrationFile;
 use tkouleris\CrudPanel\Models\ModelFile;
 
 class CrudPanelController extends Controller
@@ -22,7 +23,7 @@ class CrudPanelController extends Controller
     }
 
     // Other Requests
-    public function create_model(Request $request, ModelFile $mf)
+    public function create_model(Request $request, ModelFile $mf,MigrationFile $migf)
     {
         if(($request->model_name == null) || (!$request->has('model_name')) )
         {
@@ -53,7 +54,15 @@ class CrudPanelController extends Controller
         if( $request->create_migration == 1)
         {
             Artisan::call('make:migration create_'.$request->model_name.'_table');
-            $message .= Artisan::output();
+            $MigrationOutput = Artisan::output();
+            $MigrationFile = trim(substr($MigrationOutput,19));
+
+            $ins_migration_args = array();
+            $ins_migration_args['MigrationFileName'] = $MigrationFile;
+            $ins_migration_args['MigrationModelId'] = $model_record->ModelFileId;
+            $migration_record = $migf::create($ins_migration_args);
+
+            $message .= $MigrationOutput;
         }
 
         if( $request->create_controller == 1)
