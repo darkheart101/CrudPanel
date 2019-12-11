@@ -31,7 +31,12 @@
               <nav class="navbar navbar-expand-md navbar-light bg-gradient-primary navbar-laravel">
                   <div class="container">
                       <a class="navbar-brand text-white" href="">Crud Panel</a>
-                      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+                      <button class="navbar-toggler" type="button"
+                              data-toggle="collapse"
+                              data-target="#navbarSupportedContent"
+                              aria-controls="navbarSupportedContent"
+                              aria-expanded="false" aria-label="{{ __('Toggle navigation') }}"
+                      >
                           <span class="navbar-toggler-icon"></span>
                       </button>
 
@@ -44,7 +49,14 @@
 
               <div class="float-left" style="padding-top:2px;">
                   <!-- Sidebar -->
-                  <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar" style="padding-top:5px;">
+                  <ul class="navbar-nav
+                             bg-gradient-primary
+                             sidebar
+                             sidebar-dark
+                             accordion"
+                      id="accordionSidebar"
+                      style="padding-top:5px;"
+                  >
                       <!-- Sidebar - Brand -->
                       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
                           <div class="sidebar-brand-icon">
@@ -97,8 +109,16 @@
 
               <div>
                 <div class="container">
-                    <div class="d-none alert alert-primary" id="alert_section" name="alert_section" role="alert"></div>
-                    <div class="d-none alert alert-danger" id="alert_danger_section" name="alert_danger_section" role="alert"></div>
+                    <div class="d-none alert alert-primary"
+                         id="alert_section"
+                         name="alert_section"
+                         role="alert">
+                    </div>
+                    <div class="d-none alert alert-danger"
+                         id="alert_danger_section"
+                         name="alert_danger_section"
+                         role="alert">
+                    </div>
                     <div class="row" style="padding-top:10px;">
 
                     <!-- Models List -->
@@ -109,7 +129,12 @@
                                 <div>{{ $model->ModelFileName }}</div>
                             @endforeach
                             <div class="btn-group" role="group" aria-label="Basic example" style="padding-top:5px;">
-                                <button type="button" class="btn btn-success" id="btn_new_model" data-toggle="modal" data-target="#model_form">Add </button>
+                                <button type="button"
+                                        class="btn btn-success"
+                                        id="btn_new_model"
+                                        data-toggle="modal"
+                                        data-target="#model_form"
+                                >Add </button>
                                 <button type="button" class="btn btn-secondary"  id="btn_edit_model">Edit</button>
                                 <button type="button" class="btn btn-danger">Delete</button>
                             </div>
@@ -124,7 +149,12 @@
                             <button type="button" data-borrowerid="{{ $borrower->id }}" name="borrower_row" class="list-group-item list-group-item-action">{{ $borrower->lastname.' '.$borrower->firstname }}</button>
                             @endforeach --}}
                             <div class="btn-group" role="group" aria-label="Basic example" style="padding-top:5px;">
-                                <button type="button" class="btn btn-success" id="btn_new_controller" data-toggle="modal" data-target="#controller_form">Add </button>
+                                <button type="button"
+                                        class="btn btn-success"
+                                        id="btn_new_controller"
+                                        data-toggle="modal"
+                                        data-target="#controller_form">Add
+                                </button>
                                 <button type="button" class="btn btn-secondary" id="btn_edit_controller">Edit</button>
                                 <button type="button" class="btn btn-danger">Delete</button>
                             </div>
@@ -139,7 +169,12 @@
                             <button type="button" name="author_row" data-authorid="{{ $author->id }}" class="list-group-item list-group-item-action">{{ $author->lastname.' '.$author->firstname }}</button>
                             @endforeach --}}
                             <div class="btn-group" role="group" aria-label="Basic example" style="padding-top:5px;">
-                                <button type="button" class="btn btn-success" id="btn_new_migration" data-toggle="modal" data-target="#migration_form">Add </button>
+                                <button type="button"
+                                        class="btn btn-success"
+                                        id="btn_new_migration"
+                                        data-toggle="modal"
+                                        data-target="#migration_form">Add
+                                </button>
                                 <button type="button" class="btn btn-secondary"  id="btn_edit_migration">Edit</button>
                                 <button type="button" class="btn btn-danger">Delete</button>
                             </div>
@@ -168,9 +203,18 @@
                         <!-- Model Name -->
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                                <span class="input-group-text" style="min-width: 100px;" id="inputGroup-sizing-default">Model Name</span>
+                                <span class="input-group-text"
+                                      style="min-width: 100px;"
+                                      id="inputGroup-sizing-default">Model Name
+                                </span>
                             </div>
-                            <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="cp_model_name" id="cp_model_name">
+                            <input type="text"
+                                   class="form-control"
+                                   aria-label="Default"
+                                   aria-describedby="inputGroup-sizing-default"
+                                   name="cp_model_name"
+                                   id="cp_model_name"
+                            >
                         </div>
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="chk_migration" name="chk_migration">
