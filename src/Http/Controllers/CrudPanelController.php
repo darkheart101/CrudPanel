@@ -25,6 +25,7 @@ class CrudPanelController extends Controller
     // Other Requests
     public function create_model(Request $request, ModelFile $mf,MigrationFile $migf)
     {
+        dd("test");
         if(($request->model_name == null) || (!$request->has('model_name')) )
         {
             $results['success'] = false;
@@ -75,5 +76,33 @@ class CrudPanelController extends Controller
         $results['success'] = true;
         $results['message'] = $message;
         return $results;
+    }
+
+    public function create_migration(Request $request, MigrationFile $migrationModel)
+    {
+        if(($request->table_name == null) || (!$request->has('table_name')) )
+        {
+            $results['success'] = false;
+            $results['message'] = "No table name selected!";
+            return $results;
+        }
+
+        if ($request->table_name == trim($request->table_name) && strpos($request->table_name, ' ') !== false) {
+            $results['success'] = false;
+            $results['message'] = "Table name must not contain spaces!";
+            return $results;
+        }
+
+        Artisan::call('make:migration create_'.$request->table_name.'_table');
+        $MigrationOutput = Artisan::output();
+        $MigrationFile = trim(substr($MigrationOutput,19));
+
+        $ins_migration_args = array();
+        $ins_migration_args['MigrationFileName'] = $MigrationFile;
+        $migration_record = $migrationModel::create($ins_migration_args);
+
+        $message .= $MigrationOutput;
+
+        return view('CrudPanel::crud_panel_migration_editor');
     }
 }

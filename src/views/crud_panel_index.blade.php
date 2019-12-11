@@ -21,7 +21,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
-        <link href="{{ asset('crud_panel/css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <link href="{{ asset('crud_panel/css/dashboard.min.css') }}" rel="stylesheet">
     </head>
     <body>
@@ -188,6 +188,8 @@
     </body>
 
     <!-- Forms -->
+
+    <!-- Model Form -->
     <div class="modal" tabindex="-1" role="dialog" id="model_form">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -228,16 +230,57 @@
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" name="btn_save_model" id="btn_save_model">Save Model</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="hidden" name="model_token" value="{{ csrf_token() }}">
+                        {{-- <input type="hidden" name="_token" value="{{csrf_token()}}"> --}}
                     </div>
                 </form>
             </div>
         </div>
     </div>
 
+    <!-- Migration Form -->
+    {{-- <div class="modal" tabindex="-1" role="dialog" id="migration_form">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Model Form</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="alert alert-danger" style="display:none"></div>
+                <form action="" method="post">
+                    <div class="modal-body">
+                        <!--  Migration Table Name -->
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"
+                                      style="min-width: 100px;"
+                                      id="inputGroup-sizing-default">Table Name
+                                </span>
+                            </div>
+                            <input type="text"
+                                   class="form-control"
+                                   aria-label="Default"
+                                   aria-describedby="inputGroup-sizing-default"
+                                   name="cp_migration_table_name"
+                                   id="cp_migration_table_name"
+                            >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" name="btn_save_migration" id="btn_save_migration">Create Migration File</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="hidden" name="migration_token" value="{{ csrf_token() }}">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div> --}}
+
       <script>
             $(document).ready(function() {
 
+                // Models
                 $("button[name=btn_save_model]").click(function(event){
                     event.preventDefault();
 
@@ -245,7 +288,6 @@
                     var el_alert_section = $('#alert_section');
                     var el_alert_danger_section = $('#alert_danger_section');
                     var model_name = $('input[name=cp_model_name]').val();
-                    var _token = $('[name=_token]').val();
 
                     var el_migration = $('input[name=chk_migration]')
                     var create_migration = 0
@@ -255,12 +297,19 @@
                     var create_controller = 0
                     if(el_controller.is(":checked")) create_controller = 1;
 
+                    console.log($('meta[name="csrf-token"]').attr('content'));
+                    $.ajaxSetup({
+                        headers:
+                        {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
                     jQuery.ajax({
                         url: "model/create",
                         method: 'post',
                         data:
                         {
-                            _token: _token,
                             model_name: model_name,
                             create_migration: create_migration,
                             create_controller: create_controller
@@ -282,6 +331,44 @@
                     });
 
                 });
+
+
+                // Migrations
+                // $("button[name=btn_save_migration]").click(function(event){
+                //     event.preventDefault();
+
+                //     var el_model_form = $('#migration_form');
+                //     // var el_alert_section = $('#alert_section');
+                //     // var el_alert_danger_section = $('#alert_danger_section');
+                //     var model_name = $('input[name=cp_migration_table_name]').val();
+                //     var _token = $('[name=_token]').val();
+
+                //     console.log(_token);
+                //     jQuery.ajax({
+                //         url: "migration/create",
+                //         method: 'post',
+                //         data:
+                //         {
+                //             _token: _token,
+                //             table_name: cp_migration_table_name,
+                //         },
+                //         success: function(response)
+                //         {
+                //             el_model_form.modal('hide');
+
+                //             el_alert_section.html(response.message);
+                //             el_alert_section.removeClass('d-none');
+                //         },
+                //         error: function (response)
+                //         {
+                //             el_model_form.modal('hide');
+
+                //             el_alert_danger_section.html(response.message);
+                //             el_alert_danger_section.removeClass('d-none');
+                //         }
+                //     });
+
+                // });
 
             });
 
