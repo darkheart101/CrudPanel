@@ -238,7 +238,7 @@
     </div>
 
     <!-- Migration Form -->
-    {{-- <div class="modal" tabindex="-1" role="dialog" id="migration_form">
+    <div class="modal" tabindex="-1" role="dialog" id="migration_form">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -275,7 +275,7 @@
                 </form>
             </div>
         </div>
-    </div> --}}
+    </div>
 
       <script>
             $(document).ready(function() {
@@ -297,7 +297,6 @@
                     var create_controller = 0
                     if(el_controller.is(":checked")) create_controller = 1;
 
-                    console.log($('meta[name="csrf-token"]').attr('content'));
                     $.ajaxSetup({
                         headers:
                         {
@@ -334,41 +333,45 @@
 
 
                 // Migrations
-                // $("button[name=btn_save_migration]").click(function(event){
-                //     event.preventDefault();
+                $("button[name=btn_save_migration]").click(function(event){
+                    event.preventDefault();
 
-                //     var el_model_form = $('#migration_form');
-                //     // var el_alert_section = $('#alert_section');
-                //     // var el_alert_danger_section = $('#alert_danger_section');
-                //     var model_name = $('input[name=cp_migration_table_name]').val();
-                //     var _token = $('[name=_token]').val();
+                    var el_model_form = $('#migration_form');
+                    // var el_alert_section = $('#alert_section');
+                    // var el_alert_danger_section = $('#alert_danger_section');
+                    var model_name = $('input[name=cp_migration_table_name]').val();
 
-                //     console.log(_token);
-                //     jQuery.ajax({
-                //         url: "migration/create",
-                //         method: 'post',
-                //         data:
-                //         {
-                //             _token: _token,
-                //             table_name: cp_migration_table_name,
-                //         },
-                //         success: function(response)
-                //         {
-                //             el_model_form.modal('hide');
+                    $.ajaxSetup({
+                        headers:
+                        {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
 
-                //             el_alert_section.html(response.message);
-                //             el_alert_section.removeClass('d-none');
-                //         },
-                //         error: function (response)
-                //         {
-                //             el_model_form.modal('hide');
+                    jQuery.ajax({
+                        url: "migration/create",
+                        method: 'post',
+                        data:
+                        {
+                            table_name: cp_migration_table_name,
+                        },
+                        success: function(response)
+                        {
+                            el_model_form.modal('hide');
 
-                //             el_alert_danger_section.html(response.message);
-                //             el_alert_danger_section.removeClass('d-none');
-                //         }
-                //     });
+                            el_alert_section.html(response.message);
+                            el_alert_section.removeClass('d-none');
+                        },
+                        error: function (response)
+                        {
+                            el_model_form.modal('hide');
 
-                // });
+                            el_alert_danger_section.html(response.message);
+                            el_alert_danger_section.removeClass('d-none');
+                        }
+                    });
+
+                });
 
             });
 
