@@ -25,7 +25,6 @@ class CrudPanelController extends Controller
     // Other Requests
     public function create_model(Request $request, ModelFile $mf,MigrationFile $migf)
     {
-        dd("test");
         if(($request->model_name == null) || (!$request->has('model_name')) )
         {
             $results['success'] = false;
