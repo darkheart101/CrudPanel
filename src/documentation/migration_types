@@ -1,0 +1,59 @@
+bigIncrements('id');	Auto-incrementing UNSIGNED BIGINT (primary key) equivalent column.
+bigInteger('votes');	BIGINT equivalent column.
+binary('data');	BLOB equivalent column.
+boolean('confirmed');	BOOLEAN equivalent column.
+char('name', 100);	CHAR equivalent column with an optional length.
+date('created_at');	DATE equivalent column.
+dateTime('created_at');	DATETIME equivalent column.
+dateTimeTz('created_at');	DATETIME (with timezone) equivalent column.
+decimal('amount', 8, 2);	DECIMAL equivalent column with a precision (total digits) and scale (decimal digits).
+double('amount', 8, 2);	DOUBLE equivalent column with a precision (total digits) and scale (decimal digits).
+enum('level', ['easy', 'hard']);	ENUM equivalent column.
+float('amount', 8, 2);	FLOAT equivalent column with a precision (total digits) and scale (decimal digits).
+geometry('positions');	GEOMETRY equivalent column.
+geometryCollection('positions');	GEOMETRYCOLLECTION equivalent column.
+increments('id');	Auto-incrementing UNSIGNED INTEGER (primary key) equivalent column.
+integer('votes');	INTEGER equivalent column.
+ipAddress('visitor');	IP address equivalent column.
+json('options');	JSON equivalent column.
+jsonb('options');	JSONB equivalent column.
+lineString('positions');	LINESTRING equivalent column.
+longText('description');	LONGTEXT equivalent column.
+macAddress('device');	MAC address equivalent column.
+mediumIncrements('id');	Auto-incrementing UNSIGNED MEDIUMINT (primary key) equivalent column.
+mediumInteger('votes');	MEDIUMINT equivalent column.
+mediumText('description');	MEDIUMTEXT equivalent column.
+morphs('taggable');	Adds taggable_id UNSIGNED BIGINT and taggable_type VARCHAR equivalent columns.
+uuidMorphs('taggable');	Adds taggable_id CHAR(36) and taggable_type VARCHAR(255) UUID equivalent columns.
+multiLineString('positions');	MULTILINESTRING equivalent column.
+multiPoint('positions');	MULTIPOINT equivalent column.
+multiPolygon('positions');	MULTIPOLYGON equivalent column.
+nullableMorphs('taggable');	Adds nullable versions of morphs() columns.
+nullableUuidMorphs('taggable');	Adds nullable versions of uuidMorphs() columns.
+nullableTimestamps();	Alias of timestamps() method.
+point('position');	POINT equivalent column.
+polygon('positions');	POLYGON equivalent column.
+rememberToken();	Adds a nullable remember_token VARCHAR(100) equivalent column.
+set('flavors', ['strawberry', 'vanilla']);	SET equivalent column.
+smallIncrements('id');	Auto-incrementing UNSIGNED SMALLINT (primary key) equivalent column.
+smallInteger('votes');	SMALLINT equivalent column.
+softDeletes();	Adds a nullable deleted_at TIMESTAMP equivalent column for soft deletes.
+softDeletesTz();	Adds a nullable deleted_at TIMESTAMP (with timezone) equivalent column for soft deletes.
+string('name', 100);	VARCHAR equivalent column with a optional length.
+text('description');	TEXT equivalent column.
+time('sunrise');	TIME equivalent column.
+timeTz('sunrise');	TIME (with timezone) equivalent column.
+timestamp('added_on');	TIMESTAMP equivalent column.
+timestampTz('added_on');	TIMESTAMP (with timezone) equivalent column.
+timestamps();	Adds nullable created_at and updated_at TIMESTAMP equivalent columns.
+timestampsTz();	Adds nullable created_at and updated_at TIMESTAMP (with timezone) equivalent columns.
+tinyIncrements('id');	Auto-incrementing UNSIGNED TINYINT (primary key) equivalent column.
+tinyInteger('votes');	TINYINT equivalent column.
+unsignedBigInteger('votes');	UNSIGNED BIGINT equivalent column.
+unsignedDecimal('amount', 8, 2);	UNSIGNED DECIMAL equivalent column with a precision (total digits) and scale (decimal digits).
+unsignedInteger('votes');	UNSIGNED INTEGER equivalent column.
+unsignedMediumInteger('votes');	UNSIGNED MEDIUMINT equivalent column.
+unsignedSmallInteger('votes');	UNSIGNED SMALLINT equivalent column.
+unsignedTinyInteger('votes');	UNSIGNED TINYINT equivalent column.
+uuid('id');	UUID equivalent column.
+year('birth_year');	YEAR equivalent column.
