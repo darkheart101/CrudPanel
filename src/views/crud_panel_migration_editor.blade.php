@@ -120,8 +120,14 @@
                          role="alert">
                     </div>
                     <div class="row" style="padding-top:10px;">
-
-                    <h1>Migration Editor</h1>
+                        <h1>Migration Editor</h1>
+                    </div>
+                    <div class="row" style="padding-top:10px;">
+                        <h5><b>Migration file:</b> </h5>&nbsp;{{ $migration_record->MigrationFileName }}
+                    </div>
+                    <div class="row" style="padding-top:10px;">
+                        <h5><b>Migration table:</b> </h5>&nbsp;{{ $migration_record->MigrationFileName }}
+                    </div>
               </div>
 
 

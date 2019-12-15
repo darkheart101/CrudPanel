@@ -16,7 +16,8 @@ class CpMigrationFiles extends Migration
         Schema::create('cp_migration_files', function (Blueprint $table) {
             $table->bigIncrements('MigrationFileId');
             $table->string('MigrationFileName');
-            $table->bigInteger('MigrationModelId');
+            $table->string('MigrationTable');
+            $table->bigInteger('MigrationModelId')->nullable();
             $table->timestamps();
         });
     }

@@ -305,7 +305,7 @@
                     });
 
                     jQuery.ajax({
-                        url: "model/create",
+                        url: "crudpanel/model/create",
                         method: 'post',
                         data:
                         {
@@ -336,10 +336,8 @@
                 $("button[name=btn_save_migration]").click(function(event){
                     event.preventDefault();
 
-                    var el_model_form = $('#migration_form');
-                    // var el_alert_section = $('#alert_section');
-                    // var el_alert_danger_section = $('#alert_danger_section');
-                    var model_name = $('input[name=cp_migration_table_name]').val();
+                    var migration_name = $('input[name=cp_migration_table_name]').val();
+                    var el_migration_form = $('#migration_form');
 
                     $.ajaxSetup({
                         headers:
@@ -349,18 +347,16 @@
                     });
 
                     jQuery.ajax({
-                        url: "migration/create",
+                        url: "crudpanel/migration/create",
                         method: 'post',
                         data:
                         {
-                            table_name: cp_migration_table_name,
+                            table_name: migration_name,
                         },
                         success: function(response)
                         {
-                            el_model_form.modal('hide');
-
-                            el_alert_section.html(response.message);
-                            el_alert_section.removeClass('d-none');
+                            console.log(response.data.MigrationFileId);
+                            open_migration_editor(response.data.MigrationFileId);
                         },
                         error: function (response)
                         {
@@ -372,6 +368,14 @@
                     });
 
                 });
+
+                function open_migration_editor( migration_file_id)
+                {
+                    let url = "crudpanel/migration/editor?migration_file_id=";
+                    url = url+migration_file_id;
+                    window.location.href = url;
+
+                }
 
             });
 

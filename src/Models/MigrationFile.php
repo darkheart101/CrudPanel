@@ -27,6 +27,7 @@ class MigrationFile extends Model
      */
     protected $fillable = [
         'MigrationFileName',
+        'MigrationTable',
         'MigrationModelId'
     ];
 }

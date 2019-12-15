@@ -98,10 +98,23 @@ class CrudPanelController extends Controller
 
         $ins_migration_args = array();
         $ins_migration_args['MigrationFileName'] = $MigrationFile;
+        $ins_migration_args['MigrationTable'] = $request->table_name;
         $migration_record = $migrationModel::create($ins_migration_args);
 
-        $message .= $MigrationOutput;
+        $message = $MigrationOutput;
 
-        return view('CrudPanel::crud_panel_migration_editor');
+        $results['success'] = true;
+        $results['message'] = $message;
+        $results['data'] = $migration_record;
+        return $results;
+    }
+
+    public function migration_editor(Request $request,  MigrationFile $migrationModel)
+    {
+        $migration_file_id = $request->input('migration_file_id');
+
+        $migration_record = $migrationModel::find($migration_file_id);
+
+        return view('CrudPanel::crud_panel_migration_editor',compact('migration_record'));
     }
 }

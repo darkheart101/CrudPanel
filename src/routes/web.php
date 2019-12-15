@@ -8,6 +8,7 @@ Route::group(['namespace'=>'tkouleris\CrudPanel\Http\Controllers','middleware' =
     Route::post('crudpanel/model/create', 'CrudPanelController@create_model');
 
     Route::post('crudpanel/migration/create', 'CrudPanelController@create_migration');
+    Route::get('crudpanel/migration/editor', 'CrudPanelController@migration_editor');
 
     Route::get('crudpaneltest','CrudPanelController@testIndex');
     Route::get('crudpanel/models','CrudPanelController@modelsIndex');
