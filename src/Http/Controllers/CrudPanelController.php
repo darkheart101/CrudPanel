@@ -101,6 +101,31 @@ class CrudPanelController extends Controller
         $ins_migration_args['MigrationTable'] = $request->table_name;
         $migration_record = $migrationModel::create($ins_migration_args);
 
+        // $dir = $dir = database_path()."/migrations/".$MigrationFile.'.php';
+        // $contents = file_get_contents($dir);
+        // $contents = str_replace(17, "testing line replacement", $contents);
+        // dd($contents);
+        // file_put_contents($dir, $contents);
+
+        $file = database_path()."/migrations/".$MigrationFile.'.php';
+        // $contents = file_get_contents($file);
+        $migration_code_lines = file($file); // reads an array of lines
+        $migration_code_lines[16] = str_replace($migration_code_lines[16], "\n", $migration_code_lines[16]);
+        $contents = "";
+        foreach($migration_code_lines as $line)
+        {
+            $contents .= $line;
+        }
+        file_put_contents($file, $contents);
+        // function replace_a_line($data) {
+        //    if (stristr($data, 'certain word')) {
+        //      return "replaement line!\n";
+        //    }
+        //    return $data;
+        // }
+        // $data = array_map('replace_a_line',$data);
+        // file_put_contents('myfile', implode('', $data));
+
         $message = $MigrationOutput;
 
         $results['success'] = true;

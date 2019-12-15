@@ -128,6 +128,18 @@
                     <div class="row" style="padding-top:10px;">
                         <h5><b>Migration table:</b> </h5>&nbsp;{{ $migration_record->MigrationFileName }}
                     </div>
+
+                    <div class="row" style="padding-top:10px;">
+                        <button type="submit"
+                                class="btn btn-success"
+                                name="btn_new_field"
+                                id="btn_new_field"
+                        >
+                            Add Field
+                        </button>
+                    </div>
+
+
               </div>
 
 
