@@ -126,7 +126,7 @@
                         <h5><b>Migration file:</b> </h5>&nbsp;{{ $migration_record->MigrationFileName }}
                     </div>
                     <div class="row" style="padding-top:10px;">
-                        <h5><b>Migration table:</b> </h5>&nbsp;{{ $migration_record->MigrationFileName }}
+                        <h5><b>Migration table:</b> </h5>&nbsp;{{ $migration_record->MigrationTable }}
                     </div>
 
                     <div class="row" style="padding-top:10px;">
