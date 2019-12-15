@@ -15,7 +15,7 @@ class CrudPanelServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'public' => public_path('vendor/CrudPanel/public'),
-        ], 'public');
+        ], 'tkouleris_public');
     }
 
     public function register()
