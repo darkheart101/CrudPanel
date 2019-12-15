@@ -141,7 +141,7 @@
                         </div>
                     </div>
 
-                    <!-- Borrowers List -->
+                    <!-- Controllers List -->
                     <div class="col-md-3">
                         <div class="list-group" >
                             <h3>Controllers</h3>
@@ -161,7 +161,7 @@
                         </div>
                     </div>
 
-                    <!-- Authors List -->
+                    <!-- Migrations List -->
                     <div class="col-md-3">
                         <div class="list-group" >
                             <h3>Migrations</h3>

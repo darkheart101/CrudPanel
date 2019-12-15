@@ -121,4 +121,9 @@ class CrudPanelController extends Controller
 
         return view('CrudPanel::crud_panel_migration_editor',compact('migration_record'));
     }
+
+    public function create_table_field(Request $request)
+    {
+        dd($request->input());
+    }
 }

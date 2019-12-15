@@ -134,6 +134,8 @@
                                 class="btn btn-success"
                                 name="btn_new_field"
                                 id="btn_new_field"
+                                data-toggle="modal"
+                                data-target="#field_form"
                         >
                             Add Field
                         </button>
@@ -147,11 +149,174 @@
       </div>
     </body>
 
+    <!-- Forms -->
+
+    <!-- Model Form -->
+    <div class="modal" tabindex="-1" role="dialog" id="field_form">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title">Model Form</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="alert alert-danger" style="display:none"></div>
+                <form action="" method="post">
+                    <div class="modal-body">
+                        <!-- Field Name -->
+                        <input type="text"
+                            class="d-none form-control"
+                            aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default"
+                            name="migration_file_id"
+                            id="migration_file_id"
+                            value="{{ $migration_record->MigrationFileId }}"
+                        >
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"
+                                    style="min-width: 100px;"
+                                    id="inputGroup-sizing-default">Field Name
+                                </span>
+                            </div>
+                            <input type="text"
+                                class="form-control"
+                                aria-label="Default"
+                                aria-describedby="inputGroup-sizing-default"
+                                name="field_name"
+                                id="field_name"
+                            >
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="field_type">Field Type:</label>
+                            <select class="form-control" id="field_type">
+                                <option id='bigIncrements'>bigIncrements</option>
+                                <option id='bigInteger'>bigInteger</option>
+                                <option id='binary'>binary</option>
+                                <option id='boolean'>boolean</option>
+                                <option id='char'>char</option>
+                                <option id='date'>date</option>
+                                <option id='dateTime'>dateTime</option>
+                                <option id='dateTimeTz'>dateTimeTz</option>
+                                <option id='decimal'>decimal</option>
+                                <option id='double'>double</option>
+                                <option id='enum'>enum</option>
+                                <option id='enum'>enum</option>
+                                <option id='float'>float</option>
+                                <option id='geometry'>geometry</option>
+                                <option id='geometryCollection'>geometryCollection</option>
+                                <option id='increments'>increments</option>
+                                <option id='integer'>integer</option>
+                                <option id='ipAddress'>ipAddress</option>
+                                <option id='json'>json</option>
+                                <option id='jsonb'>jsonb</option>
+                                <option id='lineString'>lineString</option>
+                                <option id='longText'>longText</option>
+                                <option id='macAddress'>macAddress</option>
+                                <option id='mediumIncrements'>mediumIncrements</option>
+                                <option id='mediumInteger'>mediumInteger</option>
+                                <option id='mediumText'>mediumText</option>
+                                <option id='morphs'>morphs</option>
+                                <option id='uuidMorphs'>uuidMorphs</option>
+                                <option id='multiLineString'>multiLineString</option>
+                                <option id='multiPoint'>multiPoint</option>
+                                <option id='multiPolygon'>multiPolygon</option>
+                                <option id='nullableMorphs'>nullableMorphs</option>
+                                <option id='nullableUuidMorphs'>nullableUuidMorphs</option>
+                                <option id='nullableTimestamps'>nullableTimestamps</option>
+                                <option id='polygon'>polygon</option>
+                                <option id='point'>point</option>
+                                <option id='rememberToken'>rememberToken</option>
+                                <option id='smallIncrements'>smallIncrements</option>
+                                <option id='smallInteger'>smallInteger</option>
+                                <option id='softDeletes'>softDeletes</option>
+                                <option id='softDeletesTz'>softDeletesTz</option>
+                                <option id='string'>string</option>
+                                <option id='text'>text</option>
+                                <option id='time'>time</option>
+                                <option id='timeTz'>timeTz</option>
+                                <option id='timestamp'>timestamp</option>
+                                <option id='timestampTz'>timestampTz</option>
+                                <option id='timestamps'>timestamps</option>
+                                <option id='timestampsTz'>timestampsTz</option>
+                                <option id='tinyIncrements'>tinyIncrements</option>
+                                <option id='tinyInteger'>tinyInteger</option>
+                                <option id='unsignedBigInteger'>unsignedBigInteger</option>
+                                <option id='unsignedDecimal'>unsignedDecimal</option>
+                                <option id='unsignedInteger'>unsignedInteger</option>
+                                <option id='unsignedMediumInteger'>unsignedMediumInteger</option>
+                                <option id='unsignedSmallInteger'>unsignedSmallInteger</option>
+                                <option id='unsignedTinyInteger'>unsignedTinyInteger</option>
+                                <option id='uuid'>uuid</option>
+                                <option id='year'>year</option>
+                            </select>
+                        </div>
+                        {{-- <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="chk_migration" name="chk_migration">
+                            <label class="form-check-label" for="chk_migration">create migration </label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="chk_controller" name="chk_controller">
+                            <label class="form-check-label" for="chk_controller">create controller </label>
+                        </div> --}}
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" name="btn_save_field" id="btn_save_field">Save Field</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        {{-- <input type="hidden" name="_token" value="{{csrf_token()}}"> --}}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
 
     <script>
         $(document).ready(function() {
 
+            $("button[name=btn_save_field]").click(function(event){
+                event.preventDefault();
 
+                    var el_field_form = $('#field_form');
+                    var field_name = $('input[name=field_name]').val();
+                    var migration_file_id = $('input[name=migration_file_id]').val();
+                    var field_type = $("#field_type").find('option:selected').attr('id');
+
+                    var getUrl = window.location;
+                    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+                    $.ajaxSetup({
+                        headers:
+                        {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    jQuery.ajax({
+                        url: baseUrl + "/tablefields/create",
+                        method: 'post',
+                        data:
+                        {
+                            field_name: field_name,
+                            field_type: field_type,
+                            migration_file_id: migration_file_id,
+                        },
+                        success: function(response)
+                        {
+
+                        },
+                        error: function (response)
+                        {
+                            el_model_form.modal('hide');
+
+                            el_alert_danger_section.html(response.message);
+                            el_alert_danger_section.removeClass('d-none');
+                        }
+                    });
+
+                });
 
         });
 
