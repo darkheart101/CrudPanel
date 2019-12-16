@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use tkouleris\CrudPanel\Models\MigrationFile;
 use tkouleris\CrudPanel\Models\ModelFile;
 use tkouleris\CrudPanel\File\FileEditor;
+use tkouleris\CrudPanel\Repositories\Interfaces\IMigrationFile;
 
 class CrudPanelController extends Controller
 {
@@ -122,9 +123,9 @@ class CrudPanelController extends Controller
         return view('CrudPanel::crud_panel_migration_editor',compact('migration_record'));
     }
 
-    public function create_table_field(Request $request, MigrationFile $migrationModel, FileEditor $file_editor)
+    public function create_table_field(Request $request, IMigrationFile $r_migration_file, FileEditor $file_editor)
     {
-        $migr_record = $migrationModel::find($request->input('migration_file_id'));
+        $migr_record = $r_migration_file->find_by_id( $request->input('migration_file_id') );
         // create migration line
         $field_name = $request->input('field_name');
         $field_type = $request->input('field_type');
