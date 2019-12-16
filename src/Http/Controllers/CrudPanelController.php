@@ -25,7 +25,7 @@ class CrudPanelController extends Controller
     }
 
     // Other Requests
-    public function create_model(Request $request, ModelFile $mf,MigrationFile $migf)
+    public function create_model(Request $request, ModelFile $mf, IMigrationFile $r_migration_file)
     {
         if(($request->model_name == null) || (!$request->has('model_name')) )
         {
@@ -62,7 +62,7 @@ class CrudPanelController extends Controller
             $ins_migration_args = array();
             $ins_migration_args['MigrationFileName'] = $MigrationFile;
             $ins_migration_args['MigrationModelId'] = $model_record->ModelFileId;
-            $migration_record = $migf::create($ins_migration_args);
+            $migration_record = $r_migration_file->create($ins_migration_args);
 
             $message .= $MigrationOutput;
         }
@@ -79,7 +79,7 @@ class CrudPanelController extends Controller
         return $results;
     }
 
-    public function create_migration(Request $request, MigrationFile $migrationModel, FileEditor $file_editor)
+    public function create_migration(Request $request, IMigrationFile $r_migration_file, FileEditor $file_editor)
     {
         if(($request->table_name == null) || (!$request->has('table_name')) )
         {
@@ -101,7 +101,7 @@ class CrudPanelController extends Controller
         $ins_migration_args = array();
         $ins_migration_args['MigrationFileName'] = $MigrationFile;
         $ins_migration_args['MigrationTable'] = $request->table_name;
-        $migration_record = $migrationModel::create($ins_migration_args);
+        $migration_record = $r_migration_file->create($ins_migration_args);
 
         $file = database_path()."/migrations/".$MigrationFile.'.php';
         $file_editor->replace_line($file,17,"");
@@ -114,11 +114,11 @@ class CrudPanelController extends Controller
         return $results;
     }
 
-    public function migration_editor(Request $request, MigrationFile $migrationModel)
+    public function migration_editor(Request $request, IMigrationFile $r_migration_file)
     {
         $migration_file_id = $request->input('migration_file_id');
 
-        $migration_record = $migrationModel::find($migration_file_id);
+        $migration_record = $r_migration_file->find_by_id($migration_file_id);
 
         return view('CrudPanel::crud_panel_migration_editor',compact('migration_record'));
     }

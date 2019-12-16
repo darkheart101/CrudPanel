@@ -19,4 +19,8 @@ class MigrationFileRepository implements IMigrationFile
         return $this->model::where('MigrationFileId',$id)->first();
     }
 
+    public function create( $data )
+    {
+        return $this->model::create( $data );
+    }
 }
