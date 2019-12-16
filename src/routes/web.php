@@ -9,8 +9,8 @@ Route::group(['namespace'=>'tkouleris\CrudPanel\Http\Controllers','middleware' =
     Route::post('crudpanel/model/create', 'CrudPanelController@create_model');
 
     // migrations
-    Route::post('crudpanel/migration/create', 'CrudPanelController@create_migration');
-    Route::get('crudpanel/migration/editor', 'CrudPanelController@migration_editor');
+    Route::post('crudpanel/migration/create', 'CP_migrationController@create_migration');
+    Route::get('crudpanel/migration/editor', 'CP_migrationController@migration_editor');
 
     // table fields
     Route::post('crudpanel/tablefields/create', 'CrudPanelController@create_table_field');
