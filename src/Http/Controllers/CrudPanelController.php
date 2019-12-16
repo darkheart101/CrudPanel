@@ -113,7 +113,7 @@ class CrudPanelController extends Controller
         return $results;
     }
 
-    public function migration_editor(Request $request,  MigrationFile $migrationModel)
+    public function migration_editor(Request $request, MigrationFile $migrationModel)
     {
         $migration_file_id = $request->input('migration_file_id');
 
@@ -122,8 +122,20 @@ class CrudPanelController extends Controller
         return view('CrudPanel::crud_panel_migration_editor',compact('migration_record'));
     }
 
-    public function create_table_field(Request $request)
+    public function create_table_field(Request $request, MigrationFile $migrationModel, FileEditor $file_editor)
     {
-        dd($request->input());
+        $migr_record = $migrationModel::find($request->input('migration_file_id'));
+        // create migration line
+        $field_name = $request->input('field_name');
+        $field_type = $request->input('field_type');
+        $migr_line = "\t\t\t\$table->$field_type('$field_name');\n";
+
+        $file = database_path()."/migrations/".$migr_record->MigrationFileName.'.php';
+
+        $file_editor->replace_line($file,17,$migr_line);
+
+        $results['success'] = true;
+        $results['message'] = "done!";
+        return $results;
     }
 }
