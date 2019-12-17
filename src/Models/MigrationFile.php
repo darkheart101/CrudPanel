@@ -30,4 +30,12 @@ class MigrationFile extends Model
         'MigrationTable',
         'MigrationModelId'
     ];
+
+    protected $appends = ['MigrationFileFullPath'];
+
+
+    public function getMigrationFileFullPathAttribute()
+    {
+        return database_path()."/migrations/".$this->MigrationFileName.'.php';
+    }
 }

@@ -29,6 +29,6 @@ class CpTableField extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('cp_table_fields');
     }
 }
