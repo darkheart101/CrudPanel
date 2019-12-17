@@ -25,4 +25,17 @@ class ModelFileRepository implements IModelFile
     {
         return $this->model::create( $data );
     }
+
+    public function list( $filter )
+    {
+        $model_collection = $this->model::all();
+
+        if( isset($filter->limit) && ($filter->limit > 0))
+        {
+            $model_collection = $model_collection->take( $filter->limit);
+        }
+
+        return $model_collection;
+    }
+
 }

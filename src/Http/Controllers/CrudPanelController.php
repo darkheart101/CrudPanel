@@ -5,6 +5,7 @@ namespace tkouleris\CrudPanel\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
+use stdClass;
 use tkouleris\CrudPanel\Models\ModelFile;
 use tkouleris\CrudPanel\File\FileEditor;
 use tkouleris\CrudPanel\Repositories\Interfaces\IMigrationFile;
@@ -13,9 +14,11 @@ use tkouleris\CrudPanel\Repositories\Interfaces\IModelFile;
 class CrudPanelController extends Controller
 {
     // View Controllers
-    public function index()
+    public function index(IModelFile $r_model_file)
     {
-        $modelFiles = ModelFile::all()->take(5);
+        $filter = new stdClass();
+        $filter->limit = 5;
+        $modelFiles = $r_model_file->list($filter);
         return view('CrudPanel::crud_panel_index',compact('modelFiles'));
     }
 
