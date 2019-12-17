@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Artisan;
 use tkouleris\CrudPanel\Models\ModelFile;
 use tkouleris\CrudPanel\File\FileEditor;
 use tkouleris\CrudPanel\Repositories\Interfaces\IMigrationFile;
+use tkouleris\CrudPanel\Repositories\Interfaces\IModelFile;
 
 class CrudPanelController extends Controller
 {
@@ -24,7 +25,7 @@ class CrudPanelController extends Controller
     }
 
     // Other Requests
-    public function create_model(Request $request, ModelFile $mf, IMigrationFile $r_migration_file)
+    public function create_model(Request $request, IModelFile $r_model_file, IMigrationFile $r_migration_file)
     {
         if(($request->model_name == null) || (!$request->has('model_name')) )
         {
@@ -39,14 +40,13 @@ class CrudPanelController extends Controller
             return $results;
         }
 
-        $model = $mf::where('ModelFileName',$request->model_name)->first();
-
+        $model = $r_model_file->find_by_filename($request->model_name);
         if( $model == null)
         {
             $data = [
                 'ModelFileName' =>$request->model_name
             ];
-            $model_record = $mf::create($data);
+            $model_record = $r_model_file->create($data);
         }
 
         Artisan::call('make:model '.$request->model_name);
