@@ -39,7 +39,6 @@ class CP_migrationController extends Controller
         $file = database_path()."/migrations/".$MigrationOutput['file'].'.php';
         $file_editor->replace_line($file,17,"\n");
 
-
         $results['success'] = true;
         $results['message'] = $MigrationOutput['message'];
         $results['data'] = $migration_record;
