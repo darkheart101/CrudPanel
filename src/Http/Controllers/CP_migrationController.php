@@ -4,9 +4,11 @@ namespace tkouleris\CrudPanel\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use stdClass;
 use tkouleris\CrudPanel\File\FileEditor;
 use tkouleris\CrudPanel\File\FileCreator;
 use tkouleris\CrudPanel\Repositories\Interfaces\IMigrationFile;
+use tkouleris\CrudPanel\Repositories\Interfaces\ITableField;
 
 class CP_migrationController extends Controller
 {
@@ -45,13 +47,17 @@ class CP_migrationController extends Controller
         return $results;
     }
 
-    public function migration_editor(Request $request, IMigrationFile $r_migration_file)
+    public function migration_editor(Request $request, IMigrationFile $r_migration_file, ITableField $r_table_field)
     {
         $migration_file_id = $request->input('migration_file_id');
 
         $migration_record = $r_migration_file->find_by_id($migration_file_id);
 
-        return view('CrudPanel::crud_panel_migration_editor',compact('migration_record'));
+        $filter = new stdClass();
+        $filter->TableFieldMigrationId = $migration_file_id;
+        $tableFieldList = $r_table_field->list($filter);
+
+        return view('CrudPanel::crud_panel_migration_editor',compact('migration_record','tableFieldList'));
     }
 
 }

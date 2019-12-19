@@ -129,7 +129,7 @@
                         <h5><b>Migration table:</b> </h5>&nbsp;{{ $migration_record->MigrationTable }}
                     </div>
 
-                    <div class="row" style="padding-top:10px;">
+                    <div class="row" style="padding-top:10px;margin-bottom:20px;">
                         <button type="submit"
                                 class="btn btn-success"
                                 name="btn_new_field"
@@ -140,6 +140,23 @@
                             Add Field
                         </button>
                     </div>
+                    <h3>Table Fields</h3>
+                    <table border="1" width="100%">
+                        <tr>
+                            <th>
+                                <b>Filed Name</b>
+                            </th>
+                            <th>
+                                <b>Filed Type</b>
+                            </th>
+                        </tr>
+                        @foreach ($tableFieldList as $table_field_record)
+                            <tr>
+                                <td>{{$table_field_record->TableFieldName}}</td>
+                                <td>{{$table_field_record->TableFieldType}}</td>
+                            </tr>
+                        @endforeach
+                    </table>
 
 
               </div>

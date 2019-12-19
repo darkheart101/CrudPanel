@@ -21,4 +21,17 @@ class TableFieldRepository implements ITableField
         return $this->model::create( $data );
     }
 
+    public function list( $filter = null)
+    {
+        if( $filter == null) return $this->model::all();
+
+        $query = $this->model;
+        if(isset($filter->TableFieldMigrationId))
+        {
+            $query = $query->where('TableFieldMigrationId',$filter->TableFieldMigrationId);
+        }
+
+        return $query->get();
+    }
+
 }
