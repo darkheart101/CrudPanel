@@ -6,8 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
 use stdClass;
-use tkouleris\CrudPanel\Models\ModelFile;
+
 use tkouleris\CrudPanel\File\FileEditor;
+use tkouleris\CrudPanel\File\FileCreator;
 use tkouleris\CrudPanel\Repositories\Interfaces\IMigrationFile;
 use tkouleris\CrudPanel\Repositories\Interfaces\IModelFile;
 
@@ -28,7 +29,10 @@ class CrudPanelController extends Controller
     }
 
     // Other Requests
-    public function create_model(Request $request, IModelFile $r_model_file, IMigrationFile $r_migration_file)
+    public function create_model(Request $request,
+        IModelFile $r_model_file,
+        IMigrationFile $r_migration_file,
+        FileCreator $file_creator)
     {
         if(($request->model_name == null) || (!$request->has('model_name')) )
         {
@@ -52,27 +56,28 @@ class CrudPanelController extends Controller
             $model_record = $r_model_file->create($data);
         }
 
-        Artisan::call('make:model '.$request->model_name);
-        $message = Artisan::output();
+        $file_creator->model($request->model_name);
 
         if( $request->create_migration == 1)
         {
-            Artisan::call('make:migration create_'.$request->model_name.'_table');
-            $MigrationOutput = Artisan::output();
-            $MigrationFile = trim(substr($MigrationOutput,19));
+            $migration_name = 'create_'.$request->model_name.'_table';
+            $migration_output = $file_creator->migration($migration_name);
+            $MigrationMessage = $migration_output['message'];
+            $MigrationFile = $migration_output['file'];
 
             $ins_migration_args = array();
             $ins_migration_args['MigrationFileName'] = $MigrationFile;
             $ins_migration_args['MigrationModelId'] = $model_record->ModelFileId;
             $migration_record = $r_migration_file->create($ins_migration_args);
 
-            $message .= $MigrationOutput;
+            $message .= $MigrationMessage;
         }
 
         if( $request->create_controller == 1)
         {
-            Artisan::call('make:controller '.$request->model_name.'Controller');
-            $message .= Artisan::output();
+            $controler_name = $request->model_name.'Controller';
+            $controller_output = $file_creator->controller( $controler_name );
+            $message = $controller_output['message'];
         }
 
 

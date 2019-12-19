@@ -4,14 +4,17 @@ namespace tkouleris\CrudPanel\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Artisan;
 use tkouleris\CrudPanel\File\FileEditor;
+use tkouleris\CrudPanel\File\FileCreator;
 use tkouleris\CrudPanel\Repositories\Interfaces\IMigrationFile;
 
 class CP_migrationController extends Controller
 {
 
-    public function create_migration(Request $request, IMigrationFile $r_migration_file, FileEditor $file_editor)
+    public function create_migration(Request $request,
+        IMigrationFile $r_migration_file,
+        FileEditor $file_editor,
+        FileCreator $file_creator)
     {
         if(($request->table_name == null) || (!$request->has('table_name')) )
         {
@@ -26,22 +29,19 @@ class CP_migrationController extends Controller
             return $results;
         }
 
-        Artisan::call('make:migration create_'.$request->table_name.'_table');
-        $MigrationOutput = Artisan::output();
-        $MigrationFile = trim(substr($MigrationOutput,19));
+        $MigrationOutput = $file_creator->migration('create_'.$request->table_name.'_table');
 
         $ins_migration_args = array();
-        $ins_migration_args['MigrationFileName'] = $MigrationFile;
+        $ins_migration_args['MigrationFileName'] = $MigrationOutput['file'];
         $ins_migration_args['MigrationTable'] = $request->table_name;
         $migration_record = $r_migration_file->create($ins_migration_args);
 
-        $file = database_path()."/migrations/".$MigrationFile.'.php';
+        $file = database_path()."/migrations/".$MigrationOutput['file'].'.php';
         $file_editor->replace_line($file,17,"\n");
 
-        $message = $MigrationOutput;
 
         $results['success'] = true;
-        $results['message'] = $message;
+        $results['message'] = $MigrationOutput['message'];
         $results['data'] = $migration_record;
         return $results;
     }
