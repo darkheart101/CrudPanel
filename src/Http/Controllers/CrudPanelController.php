@@ -11,6 +11,7 @@ use tkouleris\CrudPanel\File\FileEditor;
 use tkouleris\CrudPanel\File\FileCreator;
 use tkouleris\CrudPanel\Repositories\Interfaces\IMigrationFile;
 use tkouleris\CrudPanel\Repositories\Interfaces\IModelFile;
+use tkouleris\CrudPanel\Repositories\Interfaces\ITableField;
 
 class CrudPanelController extends Controller
 {
@@ -86,7 +87,10 @@ class CrudPanelController extends Controller
         return $results;
     }
 
-    public function create_table_field(Request $request, IMigrationFile $r_migration_file, FileEditor $file_editor)
+    public function create_table_field(Request $request,
+        IMigrationFile $r_migration_file,
+        FileEditor $file_editor,
+        ITableField $r_table_field)
     {
         $migr_record = $r_migration_file->find_by_id( $request->input('migration_file_id') );
 
@@ -96,6 +100,13 @@ class CrudPanelController extends Controller
         $migr_line = "\t\t\t\$table->$field_type('$field_name');\n\n";
 
         $file_editor->replace_line($migr_record->MigrationFileFullPath,17,$migr_line);
+
+        $ins_table_field_rec = [
+            'TableFieldMigrationId' => $request->input('migration_file_id'),
+            'TableFieldName' => $field_name,
+            'TableFieldType' => $field_type
+        ];
+        $r_table_field->create($ins_table_field_rec);
 
         $results['success'] = true;
         $results['message'] = "done!";

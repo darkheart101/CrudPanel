@@ -305,7 +305,7 @@
                         },
                         success: function(response)
                         {
-
+                            window.location.href = "/crudpanel/migration/editor?migration_file_id="+migration_file_id;
                         },
                         error: function (response)
                         {
