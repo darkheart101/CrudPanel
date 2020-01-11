@@ -122,4 +122,15 @@ class CrudPanelController extends Controller
         $results['message'] = "done!";
         return $results;
     }
+
+    public function delete_table_field( $TableFieldId, ITableField $r_table_field, FileEditor $file_editor )
+    {
+        $deleted_record = $r_table_field->delete( $TableFieldId );
+
+        $filename = $deleted_record->MigrationFileName;
+        $linenumber = $deleted_record->TableFieldLineNumber;
+        $file = database_path()."/migrations/".$filename.'.php';
+
+        $file_editor->delete_line( $file, $linenumber);
+    }
 }

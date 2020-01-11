@@ -6,5 +6,6 @@ interface ITableField
 {
     public function create( $data );
     public function list( $filter = null);
+    public function delete( $TableFieldId );
     public function next_migration_file_available_line( $TableFieldMigrationId);
 }

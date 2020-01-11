@@ -14,6 +14,7 @@ Route::group(['namespace'=>'tkouleris\CrudPanel\Http\Controllers','middleware' =
 
     // table fields
     Route::post('crudpanel/tablefields/create', 'CrudPanelController@create_table_field');
+    Route::delete('crudpanel/tablefields/delete/{id}', 'CrudPanelController@delete_table_field');
 
     Route::get('crudpaneltest','CrudPanelController@testIndex');
     Route::get('crudpanel/models','CrudPanelController@modelsIndex');

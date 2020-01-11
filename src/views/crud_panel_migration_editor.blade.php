@@ -149,11 +149,28 @@
                             <th>
                                 <b>Filed Type</b>
                             </th>
+                            <th>
+                                <b>Action</b>
+                            </th>
                         </tr>
                         @foreach ($tableFieldList as $table_field_record)
                             <tr>
                                 <td>{{$table_field_record->TableFieldName}}</td>
                                 <td>{{$table_field_record->TableFieldType}}</td>
+                                <td>
+                                    <button type="submit"
+                                            class="btn btn-primary"
+                                            name="btn_edit_field"
+                                            id={{ $table_field_record->TableFieldId }}
+                                            data-toggle="modal"
+                                            data-target="#field_form"
+                                    >Edit Field</button>
+                                    <button type="submit"
+                                            class="btn btn-danger"
+                                            name="btn_delete_field"
+                                            id={{ $table_field_record->TableFieldId }}
+                                    >Delete Field</button>
+                                </td>
                             </tr>
                         @endforeach
                     </table>
@@ -292,48 +309,87 @@
 
     <script>
         $(document).ready(function() {
-
+            /**
+             * create new field
+             */
             $("button[name=btn_save_field]").click(function(event){
                 event.preventDefault();
 
-                    var el_field_form = $('#field_form');
-                    var field_name = $('input[name=field_name]').val();
-                    var migration_file_id = $('input[name=migration_file_id]').val();
-                    var field_type = $("#field_type").find('option:selected').attr('id');
+                var el_field_form = $('#field_form');
+                var field_name = $('input[name=field_name]').val();
+                var migration_file_id = $('input[name=migration_file_id]').val();
+                var field_type = $("#field_type").find('option:selected').attr('id');
 
-                    var getUrl = window.location;
-                    var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+                var getUrl = window.location;
+                var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-                    $.ajaxSetup({
-                        headers:
-                        {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-
-                    jQuery.ajax({
-                        url: baseUrl + "/tablefields/create",
-                        method: 'post',
-                        data:
-                        {
-                            field_name: field_name,
-                            field_type: field_type,
-                            migration_file_id: migration_file_id,
-                        },
-                        success: function(response)
-                        {
-                            window.location.href = "/crudpanel/migration/editor?migration_file_id="+migration_file_id;
-                        },
-                        error: function (response)
-                        {
-                            el_model_form.modal('hide');
-
-                            el_alert_danger_section.html(response.message);
-                            el_alert_danger_section.removeClass('d-none');
-                        }
-                    });
-
+                $.ajaxSetup({
+                    headers:
+                    {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
                 });
+
+                jQuery.ajax({
+                    url: baseUrl + "/tablefields/create",
+                    method: 'post',
+                    data:
+                    {
+                        field_name: field_name,
+                        field_type: field_type,
+                        migration_file_id: migration_file_id,
+                    },
+                    success: function(response)
+                    {
+                        window.location.href = "/crudpanel/migration/editor?migration_file_id="+migration_file_id;
+                    },
+                    error: function (response)
+                    {
+                        el_model_form.modal('hide');
+
+                        el_alert_danger_section.html(response.message);
+                        el_alert_danger_section.removeClass('d-none');
+                    }
+                });
+
+            });
+
+
+            /**
+             * delete field
+             */
+            $("button[name=btn_delete_field]").click(function(event){
+                event.preventDefault();
+
+                var TableFieldId = $(this).attr('id');
+
+                var getUrl = window.location;
+                var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
+
+                $.ajaxSetup({
+                    headers:
+                    {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                jQuery.ajax({
+                    url: baseUrl + "/tablefields/delete/" + TableFieldId,
+                    method: 'delete',
+                    success: function(response)
+                    {
+                        location.reload();
+                    },
+                    error: function (response)
+                    {
+                        el_model_form.modal('hide');
+
+                        el_alert_danger_section.html(response.message);
+                        el_alert_danger_section.removeClass('d-none');
+                    }
+                });
+
+            });
 
         });
 

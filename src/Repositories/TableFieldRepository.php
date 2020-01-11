@@ -44,4 +44,15 @@ class TableFieldRepository implements ITableField
         return $max_line + 1;
     }
 
+    public function delete( $TableFieldId )
+    {
+        $table_field_record = $this->model::leftJoin('cp_migration_files','MigrationFileId','TableFieldMigrationId')
+            ->where('TableFieldId', $TableFieldId)
+            ->first();
+
+        if( $table_field_record !== null ) $table_field_record->delete();
+
+        return $table_field_record;
+    }
+
 }
