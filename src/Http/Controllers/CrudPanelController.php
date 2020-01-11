@@ -99,12 +99,15 @@ class CrudPanelController extends Controller
         $field_type = $request->input('field_type');
         $migr_line = "\t\t\t\$table->$field_type('$field_name');\n\n";
 
-        $file_editor->replace_line($migr_record->MigrationFileFullPath,17,$migr_line);
+        $line = $r_table_field->next_migration_file_available_line($request->input('migration_file_id'));
+
+        $file_editor->replace_line($migr_record->MigrationFileFullPath,$line,$migr_line);
 
         $ins_table_field_rec = [
             'TableFieldMigrationId' => $request->input('migration_file_id'),
             'TableFieldName' => $field_name,
-            'TableFieldType' => $field_type
+            'TableFieldType' => $field_type,
+            'TableFieldLineNumber' => $line
         ];
         $r_table_field->create($ins_table_field_rec);
 

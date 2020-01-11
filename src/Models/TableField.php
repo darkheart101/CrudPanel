@@ -28,6 +28,7 @@ class TableField extends Model
     protected $fillable = [
         'TableFieldMigrationId',
         'TableFieldName',
-        'TableFieldType'
+        'TableFieldType',
+        'TableFieldLineNumber'
     ];
 }

@@ -34,4 +34,14 @@ class TableFieldRepository implements ITableField
         return $query->get();
     }
 
+    public function next_migration_file_available_line( $TableFieldMigrationId )
+    {
+        $max_line = $this->model::where('TableFieldMigrationId',$TableFieldMigrationId)
+            ->max('TableFieldLineNumber');
+
+        if( $max_line == null ) return 17;
+
+        return $max_line + 1;
+    }
+
 }
