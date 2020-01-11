@@ -18,6 +18,7 @@ class CpTableField extends Migration
             $table->bigInteger('TableFieldMigrationId');
             $table->string('TableFieldName');
             $table->string('TableFieldType');
+            $table->integer('TableFieldLineNumber');
             $table->timestamps();
         });
     }
