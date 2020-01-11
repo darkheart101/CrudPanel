@@ -30,6 +30,10 @@ class CrudPanelController extends Controller
     }
 
     // Other Requests
+
+    /**
+     *  creates new model
+     */
     public function create_model(Request $request,
         IModelFile $r_model_file,
         IMigrationFile $r_migration_file,
@@ -87,6 +91,9 @@ class CrudPanelController extends Controller
         return $results;
     }
 
+    /**
+     * creates new table
+     */
     public function create_table_field(Request $request,
         IMigrationFile $r_migration_file,
         FileEditor $file_editor,
