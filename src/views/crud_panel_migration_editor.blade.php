@@ -109,6 +109,13 @@
 
               <div>
                 <div class="container">
+                    @if($migrated == true)
+                        <div class="alert alert-danger"
+                             id="alert_section"
+                             name="alert_section"
+                             role="alert">Cannot be edited - Already Migrated
+                        </div>
+                    @endif
                     <div class="d-none alert alert-primary"
                          id="alert_section"
                          name="alert_section"
@@ -128,18 +135,17 @@
                     <div class="row" style="padding-top:10px;">
                         <h5><b>Migration table:</b> </h5>&nbsp;{{ $migration_record->MigrationTable }}
                     </div>
-
-                    <div class="row" style="padding-top:10px;margin-bottom:20px;">
-                        <button type="submit"
-                                class="btn btn-success"
-                                name="btn_new_field"
-                                id="btn_new_field"
-                                data-toggle="modal"
-                                data-target="#field_form"
-                        >
-                            Add Field
-                        </button>
-                    </div>
+                    @if($migrated == false)
+                        <div class="row" style="padding-top:10px;margin-bottom:20px;">
+                            <button type="submit"
+                                    class="btn btn-success"
+                                    name="btn_new_field"
+                                    id="btn_new_field"
+                                    data-toggle="modal"
+                                    data-target="#field_form"
+                            >Add Field</button>
+                        </div>
+                    @endif
                     <h3>Table Fields</h3>
                     <table border="1" width="100%">
                         <tr>
@@ -158,18 +164,20 @@
                                 <td>{{$table_field_record->TableFieldName}}</td>
                                 <td>{{$table_field_record->TableFieldType}}</td>
                                 <td>
-                                    <button type="submit"
-                                            class="btn btn-primary"
-                                            name="btn_edit_field"
-                                            id={{ $table_field_record->TableFieldId }}
-                                            data-toggle="modal"
-                                            data-target="#field_form"
-                                    >Edit Field</button>
-                                    <button type="submit"
-                                            class="btn btn-danger"
-                                            name="btn_delete_field"
-                                            id={{ $table_field_record->TableFieldId }}
-                                    >Delete Field</button>
+                                    @if($migrated == false)
+                                        <button type="submit"
+                                                class="btn btn-primary"
+                                                name="btn_edit_field"
+                                                id={{ $table_field_record->TableFieldId }}
+                                                data-toggle="modal"
+                                                data-target="#field_form"
+                                        >Edit Field</button>
+                                        <button type="submit"
+                                                class="btn btn-danger"
+                                                name="btn_delete_field"
+                                                id={{ $table_field_record->TableFieldId }}
+                                        >Delete Field</button>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
