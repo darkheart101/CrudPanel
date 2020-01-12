@@ -13,6 +13,13 @@ use tkouleris\CrudPanel\Repositories\Interfaces\ITableField;
 class CP_migrationController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @param IMigrationFile $r_migration_file
+     * @param FileEditor $file_editor
+     * @param FileCreator $file_creator
+     * @return mixed
+     */
     public function create_migration(Request $request,
         IMigrationFile $r_migration_file,
         FileEditor $file_editor,
@@ -47,6 +54,12 @@ class CP_migrationController extends Controller
         return $results;
     }
 
+    /**
+     * @param Request $request
+     * @param IMigrationFile $r_migration_file
+     * @param ITableField $r_table_field
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function migration_editor(Request $request, IMigrationFile $r_migration_file, ITableField $r_table_field)
     {
         $migration_file_id = $request->input('migration_file_id');

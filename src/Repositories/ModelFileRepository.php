@@ -10,23 +10,40 @@ class ModelFileRepository implements IModelFile
     protected $model;
 
 
+    /**
+     * ModelFileRepository constructor.
+     * @param ModelFile $modelfile
+     */
     public function __construct(ModelFile $modelfile)
     {
         $this->model = $modelfile;
     }
 
 
+    /**
+     * @param $filename
+     * @return mixed
+     */
     public function find_by_filename($filename)
     {
         return $this->model::where('ModelFileName',$filename)->first();
     }
 
-    public function create( $data )
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function create($data )
     {
         return $this->model::create( $data );
     }
 
-    public function list( $filter )
+
+    /**
+     * @param $filter
+     * @return \Illuminate\Database\Eloquent\Collection|ModelFile[]
+     */
+    public function list($filter )
     {
         $model_collection = $this->model::all();
 

@@ -15,7 +15,11 @@ use tkouleris\CrudPanel\Repositories\Interfaces\ITableField;
 
 class CrudPanelController extends Controller
 {
-    // View Controllers
+
+    /**
+     * @param IModelFile $r_model_file
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(IModelFile $r_model_file)
     {
         $filter = new stdClass();
@@ -24,6 +28,10 @@ class CrudPanelController extends Controller
         return view('CrudPanel::crud_panel_index',compact('modelFiles'));
     }
 
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function modelsIndex()
     {
         return view('CrudPanel::crud_panel_models');
@@ -33,6 +41,11 @@ class CrudPanelController extends Controller
 
     /**
      *  creates new model
+     * @param Request $request
+     * @param IModelFile $r_model_file
+     * @param IMigrationFile $r_migration_file
+     * @param FileCreator $file_creator
+     * @return mixed
      */
     public function create_model(Request $request,
         IModelFile $r_model_file,
@@ -93,6 +106,11 @@ class CrudPanelController extends Controller
 
     /**
      * creates new table
+     * @param Request $request
+     * @param IMigrationFile $r_migration_file
+     * @param FileEditor $file_editor
+     * @param ITableField $r_table_field
+     * @return mixed
      */
     public function create_table_field(Request $request,
         IMigrationFile $r_migration_file,
@@ -123,7 +141,12 @@ class CrudPanelController extends Controller
         return $results;
     }
 
-    public function delete_table_field( $TableFieldId, ITableField $r_table_field, FileEditor $file_editor )
+    /**
+     * @param $TableFieldId
+     * @param ITableField $r_table_field
+     * @param FileEditor $file_editor
+     */
+    public function delete_table_field($TableFieldId, ITableField $r_table_field, FileEditor $file_editor )
     {
         $deleted_record = $r_table_field->delete( $TableFieldId );
 

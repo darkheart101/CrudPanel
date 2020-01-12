@@ -11,17 +11,29 @@ class TableFieldRepository implements ITableField
     protected $model;
 
 
+    /**
+     * TableFieldRepository constructor.
+     * @param TableField $tableField
+     */
     public function __construct(TableField $tableField)
     {
         $this->model = $tableField;
     }
 
-    public function create( $data )
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function create($data )
     {
         return $this->model::create( $data );
     }
 
-    public function list( $filter = null)
+    /**
+     * @param null $filter
+     * @return \Illuminate\Database\Eloquent\Collection|TableField[]
+     */
+    public function list($filter = null)
     {
         if( $filter == null) return $this->model::all();
 
@@ -34,7 +46,11 @@ class TableFieldRepository implements ITableField
         return $query->get();
     }
 
-    public function next_migration_file_available_line( $TableFieldMigrationId )
+    /**
+     * @param $TableFieldMigrationId
+     * @return int
+     */
+    public function next_migration_file_available_line($TableFieldMigrationId )
     {
         $max_line = $this->model::where('TableFieldMigrationId',$TableFieldMigrationId)
             ->max('TableFieldLineNumber');
@@ -44,7 +60,11 @@ class TableFieldRepository implements ITableField
         return $max_line + 1;
     }
 
-    public function delete( $TableFieldId )
+    /**
+     * @param $TableFieldId
+     * @return mixed
+     */
+    public function delete($TableFieldId )
     {
         $table_field_record = $this->model::leftJoin('cp_migration_files','MigrationFileId','TableFieldMigrationId')
             ->where('TableFieldId', $TableFieldId)
