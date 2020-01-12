@@ -65,14 +65,9 @@ class CP_migrationController extends Controller
     public function migration_editor(Request $request, IMigrationFile $r_migration_file, ITableField $r_table_field, IMigration $r_migration)
     {
         $migration_file_id = $request->input('migration_file_id');
-
         $migration_record = $r_migration_file->find_by_id($migration_file_id);
 
-        $migrated = false;
-        if( $r_migration->find_by_filename( $migration_record->MigrationFileName ) != null)
-        {
-            $migrated = true;
-        }
+        $migrated = $this->migration_file_is_migrated( $migration_record->MigrationFileName, $r_migration);
 
         $filter = new stdClass();
         $filter->TableFieldMigrationId = $migration_file_id;
@@ -80,6 +75,21 @@ class CP_migrationController extends Controller
 
         return view('CrudPanel::crud_panel_migration_editor',
             compact('migration_record','tableFieldList', 'migrated'));
+    }
+
+    /**
+     * @param $filename
+     * @param IMigration $r_migration
+     * @return bool
+     */
+    private function migration_file_is_migrated($filename, IMigration $r_migration )
+    {
+        if( $r_migration->find_by_filename( $filename ) != null)
+        {
+            return true;
+        }
+
+        return false;
     }
 
 }

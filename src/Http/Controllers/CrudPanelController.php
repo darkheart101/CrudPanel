@@ -76,6 +76,8 @@ class CrudPanelController extends Controller
 
         $file_creator->model($request->model_name);
 
+        $message = "";
+
         if( $request->create_migration == 1)
         {
             $migration_name = 'create_'.$request->model_name.'_table';
