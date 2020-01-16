@@ -5,6 +5,7 @@ namespace tkouleris\CrudPanel\Repositories;
 
 
 use tkouleris\CrudPanel\Models\Migration;
+use tkouleris\CrudPanel\Models\ModelFile;
 use tkouleris\CrudPanel\Repositories\Interfaces\IMigration;
 
 class MigrationRepository implements IMigration
@@ -21,4 +22,5 @@ class MigrationRepository implements IMigration
     {
         return $this->model::where( 'migration', $filename)->first();
     }
+
 }

@@ -2,6 +2,7 @@
 
 namespace tkouleris\CrudPanel\Http\Controllers;
 
+use Illuminate\Database\Migrations\MigrationRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Artisan;
@@ -18,14 +19,17 @@ class CrudPanelController extends Controller
 
     /**
      * @param IModelFile $r_model_file
+     * @param IMigrationFile $r_migration_file
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(IModelFile $r_model_file)
+    public function index(IModelFile $r_model_file, IMigrationFile $r_migration_file)
     {
         $filter = new stdClass();
         $filter->limit = 5;
         $modelFiles = $r_model_file->list($filter);
-        return view('CrudPanel::crud_panel_index',compact('modelFiles'));
+
+        $migrationFiles = $r_migration_file->list( $filter );
+        return view('CrudPanel::crud_panel_index',compact('modelFiles','migrationFiles'));
     }
 
 

@@ -165,9 +165,9 @@
                     <div class="col-md-3">
                         <div class="list-group" >
                             <h3>Migrations</h3>
-                            {{-- @foreach( $authors->slice(0, 5) as $author )
-                            <button type="button" name="author_row" data-authorid="{{ $author->id }}" class="list-group-item list-group-item-action">{{ $author->lastname.' '.$author->firstname }}</button>
-                            @endforeach --}}
+                            @foreach($migrationFiles as $migration_file)
+                                <div>{{ $migration_file->MigrationFileName }}</div>
+                            @endforeach
                             <div class="btn-group" role="group" aria-label="Basic example" style="padding-top:5px;">
                                 <button type="button"
                                         class="btn btn-success"
