@@ -95,8 +95,8 @@ class CrudPanelController extends Controller
 
         if( $request->create_controller == 1)
         {
-            $controler_name = $request->model_name.'Controller';
-            $controller_output = $file_creator->controller( $controler_name );
+            $controller_name = $request->model_name.'Controller';
+            $controller_output = $file_creator->controller( $controller_name );
             $message = $controller_output['message'];
         }
 
