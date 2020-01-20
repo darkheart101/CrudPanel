@@ -1,0 +1,12 @@
+20/01/2020
+- List of all models with delete button
+- List of all controllers with delete button
+- List of all migration files with edit and delete
+
+-- Dashboard --
+- remove edit button from models
+- remove edit button from controllers
+- functional edit button for migrations
+- functional delete button for models
+- functional delete button for controllers
+- functional delete button for migration fiels
