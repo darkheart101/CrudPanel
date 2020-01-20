@@ -10,6 +10,7 @@ use stdClass;
 
 use tkouleris\CrudPanel\File\FileEditor;
 use tkouleris\CrudPanel\File\FileCreator;
+use tkouleris\CrudPanel\Repositories\Interfaces\IControllerFile;
 use tkouleris\CrudPanel\Repositories\Interfaces\IMigrationFile;
 use tkouleris\CrudPanel\Repositories\Interfaces\IModelFile;
 use tkouleris\CrudPanel\Repositories\Interfaces\ITableField;
@@ -48,14 +49,16 @@ class CrudPanelController extends Controller
      * @param Request $request
      * @param IModelFile $r_model_file
      * @param IMigrationFile $r_migration_file
+     * @param IControllerFile $r_controller_file
      * @param FileCreator $file_creator
      * @return mixed
      */
     public function create_model(Request $request,
         IModelFile $r_model_file,
         IMigrationFile $r_migration_file,
-        FileCreator $file_creator)
-    {
+        IControllerFile $r_controller_file,
+        FileCreator $file_creator
+    ){
         if(($request->model_name == null) || (!$request->has('model_name')) )
         {
             $results['success'] = false;
@@ -92,6 +95,7 @@ class CrudPanelController extends Controller
             $ins_migration_args = array();
             $ins_migration_args['MigrationFileName'] = $MigrationFile;
             $ins_migration_args['MigrationModelId'] = $model_record->ModelFileId;
+            $ins_migration_args['MigrationTable'] = $request->model_name;
             $migration_record = $r_migration_file->create($ins_migration_args);
 
             $message .= $MigrationMessage;
@@ -102,6 +106,10 @@ class CrudPanelController extends Controller
             $controller_name = $request->model_name.'Controller';
             $controller_output = $file_creator->controller( $controller_name );
             $message = $controller_output['message'];
+
+            $ins_controller_args = array();
+            $ins_controller_args['ControllerFileFilename'] = $controller_name;
+            $r_controller_file->create($ins_controller_args);
         }
 
 

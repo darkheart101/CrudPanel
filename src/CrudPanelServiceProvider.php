@@ -3,6 +3,8 @@
 namespace tkouleris\CrudPanel;
 
 use Carbon\Laravel\ServiceProvider;
+use tkouleris\CrudPanel\Repositories\ControllerFileRepository;
+use tkouleris\CrudPanel\Repositories\Interfaces\IControllerFile;
 use tkouleris\CrudPanel\Repositories\Interfaces\IMigration;
 use tkouleris\CrudPanel\Repositories\Interfaces\IMigrationFile;
 use tkouleris\CrudPanel\Repositories\Interfaces\IModelFile;
@@ -33,5 +35,6 @@ class CrudPanelServiceProvider extends ServiceProvider
         $this->app->bind(IModelFile::class, ModelFileRepository::class);
         $this->app->bind(ITableField::class, TableFieldRepository::class);
         $this->app->bind(IMigration::class, MigrationRepository::class);
+        $this->app->bind(IControllerFile::class, ControllerFileRepository::class);
     }
 }
