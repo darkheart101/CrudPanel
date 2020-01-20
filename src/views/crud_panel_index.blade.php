@@ -145,9 +145,9 @@
                     <div class="col-md-3">
                         <div class="list-group" >
                             <h3>Controllers</h3>
-                            {{-- @foreach($borrowers as $borrower)
-                            <button type="button" data-borrowerid="{{ $borrower->id }}" name="borrower_row" class="list-group-item list-group-item-action">{{ $borrower->lastname.' '.$borrower->firstname }}</button>
-                            @endforeach --}}
+                            @foreach($controllerFiles as $controller_file)
+                                <div>{{ $controller_file->ControllerFileFilename }}</div>
+                            @endforeach
                             <div class="btn-group" role="group" aria-label="Basic example" style="padding-top:5px;">
                                 <button type="button"
                                         class="btn btn-success"

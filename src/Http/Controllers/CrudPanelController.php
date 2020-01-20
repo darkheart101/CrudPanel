@@ -21,16 +21,20 @@ class CrudPanelController extends Controller
     /**
      * @param IModelFile $r_model_file
      * @param IMigrationFile $r_migration_file
+     * @param IControllerFile $r_controller_file
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(IModelFile $r_model_file, IMigrationFile $r_migration_file)
+    public function index(IModelFile $r_model_file, IMigrationFile $r_migration_file, IControllerFile $r_controller_file)
     {
         $filter = new stdClass();
         $filter->limit = 5;
         $modelFiles = $r_model_file->list($filter);
 
         $migrationFiles = $r_migration_file->list( $filter );
-        return view('CrudPanel::crud_panel_index',compact('modelFiles','migrationFiles'));
+
+        $controllerFiles = $r_controller_file->list( $filter );
+
+        return view('CrudPanel::crud_panel_index',compact('modelFiles','migrationFiles','controllerFiles'));
     }
 
 
