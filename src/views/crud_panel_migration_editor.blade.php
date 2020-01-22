@@ -82,9 +82,9 @@
 
                       <!-- Nav Item - Pages Collapse Menu -->
                       <li class="nav-item">
-                          <a class="nav-link collapsed" href="{{ url('crudpanel/models') }}" >
-                            <i class="fas fa-book"></i>
-                            <span>Models</span>
+                          <a class="nav-link collapsed" href="{{ url('crudpanel/model/list') }}" >
+                              <i class="fas fa-book"></i>
+                              <span>Models</span>
                           </a>
                       </li>
 

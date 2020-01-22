@@ -43,7 +43,7 @@ class ModelFileRepository implements IModelFile
      * @param $filter
      * @return \Illuminate\Database\Eloquent\Collection|ModelFile[]
      */
-    public function list($filter )
+    public function list($filter = null )
     {
         $model_collection = $this->model::all();
 

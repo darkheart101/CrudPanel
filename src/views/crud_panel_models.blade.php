@@ -83,8 +83,8 @@
                       <!-- Nav Item - Pages Collapse Menu -->
                       <li class="nav-item">
                           <a class="nav-link collapsed" href="{{ url('crudpanel/model/list') }}" >
-                            <i class="fas fa-book"></i>
-                            <span>Models</span>
+                              <i class="fas fa-book"></i>
+                              <span>Models</span>
                           </a>
                       </li>
 
@@ -122,64 +122,27 @@
                     <div class="row" style="padding-top:10px;">
 
                     <!-- Models List -->
-                    <div class="col-md-3">
-                        <div class="list-group" >
-                            <h3>Models</h3>
-                            @foreach($modelFiles as $model)
-                                <div>{{ $model->ModelFileName }}</div>
-                            @endforeach
-                            <div class="btn-group" role="group" aria-label="Basic example" style="padding-top:5px;">
-                                <button type="button"
-                                        class="btn btn-success"
-                                        id="btn_new_model"
-                                        data-toggle="modal"
-                                        data-target="#model_form"
-                                >Add </button>
-                                <button type="button" class="btn btn-secondary"  id="btn_edit_model">Edit</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Controllers List -->
-                    <div class="col-md-3">
-                        <div class="list-group" >
-                            <h3>Controllers</h3>
-                            @foreach($controllerFiles as $controller_file)
-                                <div>{{ $controller_file->ControllerFileFilename }}</div>
-                            @endforeach
-                            <div class="btn-group" role="group" aria-label="Basic example" style="padding-top:5px;">
-                                <button type="button"
-                                        class="btn btn-success"
-                                        id="btn_new_controller"
-                                        data-toggle="modal"
-                                        data-target="#controller_form">Add
-                                </button>
-                                <button type="button" class="btn btn-secondary" id="btn_edit_controller">Edit</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Migrations List -->
-                    <div class="col-md-3">
-                        <div class="list-group" >
-                            <h3>Migrations</h3>
-                            @foreach($migrationFiles as $migration_file)
-                                <div>{{ $migration_file->MigrationFileName }}</div>
-                            @endforeach
-                            <div class="btn-group" role="group" aria-label="Basic example" style="padding-top:5px;">
-                                <button type="button"
-                                        class="btn btn-success"
-                                        id="btn_new_migration"
-                                        data-toggle="modal"
-                                        data-target="#migration_form">Add
-                                </button>
-                                <button type="button" class="btn btn-secondary"  id="btn_edit_migration">Edit</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
-                            </div>
-                        </div>
-                    </div>
+                    <h3>Models</h3>
+                    <table width="100%">
+                        <tr>
+                            <th><b>Model Name</b></th>
+                            <th><b>Created</b></th>
+                            <th><b>Updated</b></th>
+                            <th><b> - </b></th>
+                        </tr>
+                        @foreach($modelFiles as $model)
+                            <td>{{ $model->ModelFileName }}</td>
+                            <td>{{ $model->created_at }}</td>
+                            <td>{{ $model->updated_at }}</td>
+                            <td>
+                                <button type="submit"
+                                        class="btn btn-danger"
+                                        name="btn_delete_field"
+                                        id={{ $model->ModelFileId }}
+                                >Delete Model</button>
+                            </td>
+                        @endforeach
+                        </table>
               </div>
 
 
