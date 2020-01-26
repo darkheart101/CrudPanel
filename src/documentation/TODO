@@ -5,6 +5,5 @@
 
 -- Dashboard --
 - functional edit button for migrations
-- functional delete button for models
 - functional delete button for controllers
-- functional delete button for migration fiels
+- functional delete button for migration fields
