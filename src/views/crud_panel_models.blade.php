@@ -137,7 +137,7 @@
                             <td>
                                 <button type="submit"
                                         class="btn btn-danger"
-                                        name="btn_delete_field"
+                                        name="btn_model_delete"
                                         id={{ $model->ModelFileId }}
                                 >Delete Model</button>
                             </td>
@@ -243,102 +243,35 @@
       <script>
             $(document).ready(function() {
 
-                // Models
-                $("button[name=btn_save_model]").click(function(event){
+                $("button[name=btn_model_delete]").click(function(event){
                     event.preventDefault();
+                    var model_id_selected = $(this).attr('id');
 
-                    var el_model_form = $('#model_form');
-                    var el_alert_section = $('#alert_section');
-                    var el_alert_danger_section = $('#alert_danger_section');
-                    var model_name = $('input[name=cp_model_name]').val();
-
-                    var el_migration = $('input[name=chk_migration]')
-                    var create_migration = 0
-                    if(el_migration.is(":checked")) create_migration = 1;
-
-                    var el_controller = $('input[name=chk_controller]')
-                    var create_controller = 0
-                    if(el_controller.is(":checked")) create_controller = 1;
-
+                    if(model_id_selected == 0) return;
                     $.ajaxSetup({
                         headers:
-                        {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
+                            {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
                     });
 
                     jQuery.ajax({
-                        url: "crudpanel/model/create",
+                        url: "/crudpanel/model/delete",
                         method: 'post',
                         data:
-                        {
-                            model_name: model_name,
-                            create_migration: create_migration,
-                            create_controller: create_controller
-                        },
+                            {
+                                ModelFileId: model_id_selected,
+                            },
                         success: function(response)
                         {
-                            el_model_form.modal('hide');
-
-                            el_alert_section.html(response.message);
-                            el_alert_section.removeClass('d-none');
+                            // location.reload();
                         },
                         error: function (response)
                         {
-                            el_model_form.modal('hide');
-
-                            el_alert_danger_section.html(response.message);
-                            el_alert_danger_section.removeClass('d-none');
+                            // location.reload();
                         }
                     });
-
                 });
-
-
-                // Migrations
-                $("button[name=btn_save_migration]").click(function(event){
-                    event.preventDefault();
-
-                    var migration_name = $('input[name=cp_migration_table_name]').val();
-                    var el_migration_form = $('#migration_form');
-
-                    $.ajaxSetup({
-                        headers:
-                        {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-
-                    jQuery.ajax({
-                        url: "crudpanel/migration/create",
-                        method: 'post',
-                        data:
-                        {
-                            table_name: migration_name,
-                        },
-                        success: function(response)
-                        {
-                            console.log(response.data.MigrationFileId);
-                            open_migration_editor(response.data.MigrationFileId);
-                        },
-                        error: function (response)
-                        {
-                            el_model_form.modal('hide');
-
-                            el_alert_danger_section.html(response.message);
-                            el_alert_danger_section.removeClass('d-none');
-                        }
-                    });
-
-                });
-
-                function open_migration_editor( migration_file_id)
-                {
-                    let url = "crudpanel/migration/editor?migration_file_id=";
-                    url = url+migration_file_id;
-                    window.location.href = url;
-
-                }
 
             });
 
