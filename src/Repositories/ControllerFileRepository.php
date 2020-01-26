@@ -32,7 +32,7 @@ class ControllerFileRepository implements IControllerFile
      * @param $filter
      * @return \Illuminate\Database\Eloquent\Collection|ControllerFile[]
      */
-    public function list($filter )
+    public function list($filter = null)
     {
         $controller_collection = $this->model::all();
 
