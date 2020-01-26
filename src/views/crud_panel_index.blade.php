@@ -126,7 +126,9 @@
                         <div class="list-group" >
                             <h3>Models</h3>
                             @foreach($modelFiles as $model)
-                                <div>{{ $model->ModelFileName }}</div>
+                                <div name="ModelFileName" id="{{ $model->ModelFileId }}">
+                                    {{ $model->ModelFileName }}
+                                </div>
                             @endforeach
                             <div class="btn-group" role="group" aria-label="Basic example" style="padding-top:5px;">
                                 <button type="button"
@@ -135,7 +137,7 @@
                                         data-toggle="modal"
                                         data-target="#model_form"
                                 >Add </button>
-                                <button type="button" class="btn btn-danger">Delete</button>
+                                <button type="button" class="btn btn-danger" name="btn_model_delete">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -281,6 +283,8 @@
             $(document).ready(function() {
 
                 var migration_id_selected = 0;
+                var model_id_selected = 0;
+                var controller_id_selected = 0;
 
                 // Models
                 $("button[name=btn_save_model]").click(function(event){
@@ -331,6 +335,17 @@
                         }
                     });
 
+                });
+                $("button[name=btn_model_delete]").click(function(event){
+                    if(model_id_selected == 0) return;
+                    console.log(model_id_selected);
+                });
+
+
+                $('[name=ModelFileName]').click(function () {
+                    $('[name=ModelFileName]').removeClass('font-weight-bold');
+                    $(this).addClass('font-weight-bold');
+                    model_id_selected = $(this).attr('id');
                 });
 
 
