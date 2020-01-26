@@ -41,7 +41,7 @@ class MigrationFileRepository implements IMigrationFile
      * @param $filter
      * @return \Illuminate\Database\Eloquent\Collection|ModelFile[]
      */
-    public function list( $filter )
+    public function list( $filter = null )
     {
         $migration_collection = $this->model::all();
 

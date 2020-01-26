@@ -125,20 +125,22 @@
                     <h3>Models</h3>
                     <table width="100%">
                         <tr>
-                            <th><b>Model Name</b></th>
+                            <th><b>Migration File</b></th>
+                            <th><b>Migration Table</b></th>
                             <th><b>Created</b></th>
                             <th><b>Updated</b></th>
                             <th><b> - </b></th>
                         </tr>
-                        @foreach($modelFiles as $model)
-                            <td>{{ $model->ModelFileName }}</td>
-                            <td>{{ $model->created_at }}</td>
-                            <td>{{ $model->updated_at }}</td>
+                        @foreach($migration_files as $migration_file)
+                            <td>{{ $migration_file->MigrationFileName }}</td>
+                            <td>{{ $migration_file->MigrationTable }}</td>
+                            <td>{{ $migration_file->created_at }}</td>
+                            <td>{{ $migration_file->updated_at }}</td>
                             <td>
                                 <button type="submit"
                                         class="btn btn-danger"
                                         name="btn_delete_field"
-                                        id={{ $model->ModelFileId }}
+                                        id={{ $migration_file->MigrationFileId }}
                                 >Delete Model</button>
                             </td>
                         @endforeach

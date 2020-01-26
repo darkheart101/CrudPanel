@@ -13,19 +13,30 @@ use tkouleris\CrudPanel\Repositories\Interfaces\ITableField;
 
 class CP_migrationController extends Controller
 {
+    protected $r_migration_file;
+
+    public function __construct(IMigrationFile $r_migration_file)
+    {
+        $this->r_migration_file = $r_migration_file;
+    }
+
+    public function list()
+    {
+        $migration_files = $this->r_migration_file->list();
+        return view('CrudPanel::crud_panel_migrations',compact('migration_files'));
+    }
 
     /**
      * @param Request $request
-     * @param IMigrationFile $r_migration_file
      * @param FileEditor $file_editor
      * @param FileCreator $file_creator
      * @return mixed
      */
-    public function create_migration(Request $request,
-        IMigrationFile $r_migration_file,
+    public function create_migration(
+        Request $request,
         FileEditor $file_editor,
-        FileCreator $file_creator)
-    {
+        FileCreator $file_creator
+    ){
         if(($request->table_name == null) || (!$request->has('table_name')) )
         {
             $results['success'] = false;
@@ -44,7 +55,7 @@ class CP_migrationController extends Controller
         $ins_migration_args = array();
         $ins_migration_args['MigrationFileName'] = $MigrationOutput['file'];
         $ins_migration_args['MigrationTable'] = $request->table_name;
-        $migration_record = $r_migration_file->create($ins_migration_args);
+        $migration_record = $this->r_migration_file->create($ins_migration_args);
 
         $file = database_path()."/migrations/".$MigrationOutput['file'].'.php';
         $file_editor->replace_line($file,17,"\n");
