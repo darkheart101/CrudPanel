@@ -55,4 +55,12 @@ class ModelFileRepository implements IModelFile
         return $model_collection;
     }
 
+    public function delete($ModelFileId)
+    {
+        $modelFile = $this->model::where('ModelFileId',$ModelFileId)->first();
+        if($modelFile == null) return null;
+        $modelFile->delete();
+
+        return $modelFile;
+    }
 }

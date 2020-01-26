@@ -9,6 +9,7 @@ Route::group(['namespace'=>'tkouleris\CrudPanel\Http\Controllers','middleware' =
     // models
     Route::post('crudpanel/model/create', 'CrudPanelController@create_model'); // Must go to models controller
     Route::get('crudpanel/model/list','CP_modelsController@list');
+    Route::post('crudpanel/model/delete','CP_modelsController@delete');
 
     // migrations
     Route::post('crudpanel/migration/create', 'CP_migrationController@create_migration');

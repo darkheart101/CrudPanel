@@ -336,9 +336,33 @@
                     });
 
                 });
+                
                 $("button[name=btn_model_delete]").click(function(event){
+                    event.preventDefault();
                     if(model_id_selected == 0) return;
-                    console.log(model_id_selected);
+                    $.ajaxSetup({
+                        headers:
+                            {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                    });
+
+                    jQuery.ajax({
+                        url: "crudpanel/model/delete",
+                        method: 'post',
+                        data:
+                            {
+                                ModelFileId: model_id_selected,
+                            },
+                        success: function(response)
+                        {
+                            location.reload();
+                        },
+                        error: function (response)
+                        {
+                            location.reload();
+                        }
+                    });
                 });
 
 

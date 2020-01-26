@@ -24,4 +24,11 @@ class CP_modelsController extends Controller
 
         return view('CrudPanel::crud_panel_models',compact('modelFiles'));
     }
+
+    public function delete(Request $request)
+    {
+        $ModelFileRecord = $this->r_model_file->delete($request->ModelFileId);
+        unlink(app_path()."/".$ModelFileRecord->ModelFileName.".php");
+        return $ModelFileRecord;
+    }
 }
