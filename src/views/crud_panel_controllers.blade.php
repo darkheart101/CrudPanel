@@ -60,7 +60,7 @@
                       <!-- Sidebar - Brand -->
                       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
                           <div class="sidebar-brand-icon">
-                          <i class="fas fa-book-reader"></i>
+                              <i class="fas fa-book-reader"></i>
                           </div>
                           <div class="sidebar-brand-text mx-3">Crud Panel</div>
                       </a>
@@ -69,9 +69,9 @@
 
                       <!-- Nav Item - Dashboard -->
                       <li class="nav-item active">
-                          <a class="nav-link" href="{{ url('/dashboard') }}">
-                          <i class="fas fa-columns"></i>
-                          <span>Dashboard</span></a>
+                          <a class="nav-link" href="{{ url('/crudpanel') }}">
+                              <i class="fas fa-columns"></i>
+                              <span>Dashboard</span></a>
                       </li>
 
                       <!-- Divider -->
@@ -90,7 +90,7 @@
 
                       <!-- Nav Item - Utilities Collapse Menu -->
                       <li class="nav-item">
-                          <a class="nav-link collapsed" href="{{ url('/authors') }}" >
+                          <a class="nav-link collapsed" href="{{ url('/crudpanel/migration/list') }}" >
                               <i class="fas fa-pen-nib"></i>
                               <span>Migrations</span>
                           </a>
@@ -98,7 +98,7 @@
 
                       <!-- Nav Item - Utilities Collapse Menu -->
                       <li class="nav-item">
-                          <a class="nav-link collapsed" href="{{ url('/borrowers') }}" >
+                          <a class="nav-link collapsed" href="{{ url('/crudpanel/controller/list') }}" >
                               <i class="fas fa-user-edit"></i>
                               <span>Controllers</span>
                           </a>
@@ -121,11 +121,11 @@
                     </div>
                     <div class="row" style="padding-top:10px;">
 
-                    <!-- Models List -->
-                    <h3>Models</h3>
+                    <!-- Controller Files List -->
+                    <h3>Controller Files</h3>
                     <table width="100%">
                         <tr>
-                            <th><b>Model Name</b></th>
+                            <th><b>Controller Filename</b></th>
                             <th><b>Created</b></th>
                             <th><b>Updated</b></th>
                             <th><b> - </b></th>

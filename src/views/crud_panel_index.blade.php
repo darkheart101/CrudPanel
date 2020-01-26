@@ -69,7 +69,7 @@
 
                       <!-- Nav Item - Dashboard -->
                       <li class="nav-item active">
-                          <a class="nav-link" href="{{ url('/dashboard') }}">
+                          <a class="nav-link" href="{{ url('/crudpanel') }}">
                           <i class="fas fa-columns"></i>
                           <span>Dashboard</span></a>
                       </li>
@@ -90,7 +90,7 @@
 
                       <!-- Nav Item - Utilities Collapse Menu -->
                       <li class="nav-item">
-                          <a class="nav-link collapsed" href="{{ url('/authors') }}" >
+                          <a class="nav-link collapsed" href="{{ url('/crudpanel/migration/list') }}" >
                               <i class="fas fa-pen-nib"></i>
                               <span>Migrations</span>
                           </a>
@@ -98,7 +98,7 @@
 
                       <!-- Nav Item - Utilities Collapse Menu -->
                       <li class="nav-item">
-                          <a class="nav-link collapsed" href="{{ url('/borrowers') }}" >
+                          <a class="nav-link collapsed" href="{{ url('/crudpanel/controller/list') }}" >
                               <i class="fas fa-user-edit"></i>
                               <span>Controllers</span>
                           </a>
