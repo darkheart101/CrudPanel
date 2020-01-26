@@ -1,7 +1,7 @@
 20/01/2020
 - Create Models Delete functionality
 - Create Controllers Delete functionality
-- List of all migration files with edit and delete
+- Create migration files with edit and delete
 
 -- Dashboard --
 - remove edit button from models
