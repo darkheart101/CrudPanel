@@ -135,7 +135,6 @@
                                         data-toggle="modal"
                                         data-target="#model_form"
                                 >Add </button>
-                                <button type="button" class="btn btn-secondary"  id="btn_edit_model">Edit</button>
                                 <button type="button" class="btn btn-danger">Delete</button>
                             </div>
                         </div>
@@ -155,7 +154,6 @@
                                         data-toggle="modal"
                                         data-target="#controller_form">Add
                                 </button>
-                                <button type="button" class="btn btn-secondary" id="btn_edit_controller">Edit</button>
                                 <button type="button" class="btn btn-danger">Delete</button>
                             </div>
                         </div>
@@ -166,7 +164,9 @@
                         <div class="list-group" >
                             <h3>Migrations</h3>
                             @foreach($migrationFiles as $migration_file)
-                                <div>{{ $migration_file->MigrationFileName }}</div>
+                                <div name="MigrationFileName" id="{{$migration_file->MigrationFileId}}">
+                                    {{ $migration_file->MigrationFileName }}
+                                </div>
                             @endforeach
                             <div class="btn-group" role="group" aria-label="Basic example" style="padding-top:5px;">
                                 <button type="button"
@@ -175,7 +175,7 @@
                                         data-toggle="modal"
                                         data-target="#migration_form">Add
                                 </button>
-                                <button type="button" class="btn btn-secondary"  id="btn_edit_migration">Edit</button>
+                                <button type="button" class="btn btn-secondary"  name="btn_edit_migration">Edit</button>
                                 <button type="button" class="btn btn-danger">Delete</button>
                             </div>
                         </div>
@@ -280,6 +280,8 @@
       <script>
             $(document).ready(function() {
 
+                var migration_id_selected = 0;
+
                 // Models
                 $("button[name=btn_save_model]").click(function(event){
                     event.preventDefault();
@@ -369,6 +371,18 @@
 
                 });
 
+                $('[name=MigrationFileName]').click(function () {
+                    $('[name=MigrationFileName]').removeClass('font-weight-bold');
+                    $(this).addClass('font-weight-bold');
+                    migration_id_selected = $(this).attr('id');
+                });
+
+                $('button[name=btn_edit_migration]').click(function () {
+                    if(migration_id_selected == 0) return;
+
+                    open_migration_editor(migration_id_selected);
+                });
+
                 function open_migration_editor( migration_file_id)
                 {
                     let url = "crudpanel/migration/editor?migration_file_id=";
@@ -376,7 +390,6 @@
                     window.location.href = url;
 
                 }
-
             });
 
         </script>
