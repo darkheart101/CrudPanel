@@ -1,9 +1,8 @@
 20/01/2020
-- Create Models Delete functionality
 - Create Controllers Delete functionality
 - Create migration files with edit and delete
 
 -- Dashboard --
-- functional edit button for migrations
 - functional delete button for controllers
 - functional delete button for migration fields
+-- functional ADD button for controller
