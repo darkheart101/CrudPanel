@@ -336,7 +336,7 @@
                     });
 
                 });
-                
+
                 $("button[name=btn_model_delete]").click(function(event){
                     event.preventDefault();
                     if(model_id_selected == 0) return;
