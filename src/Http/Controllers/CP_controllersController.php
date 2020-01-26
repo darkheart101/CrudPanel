@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use tkouleris\CrudPanel\Repositories\Interfaces\IControllerFile;
 
-class CP_ControllersController extends Controller
+class CP_controllersController extends Controller
 {
     protected $r_controller_file;
 
@@ -18,10 +18,7 @@ class CP_ControllersController extends Controller
 
     public function list()
     {
-
         $controllerFiles = $this->r_controller_file->list();
-
-
         return view('CrudPanel::crud_panel_controllers',compact('controllerFiles'));
     }
 }
