@@ -21,4 +21,11 @@ class CP_controllersController extends Controller
         $controllerFiles = $this->r_controller_file->list();
         return view('CrudPanel::crud_panel_controllers',compact('controllerFiles'));
     }
+
+    public function delete(Request $request)
+    {
+        $ControllerFileRecord = $this->r_controller_file->delete($request->ControllerFileId);
+        unlink(app_path()."/Http/Controllers/".$ControllerFileRecord->ControllerFileFilename.".php");
+        return $ControllerFileRecord;
+    }
 }

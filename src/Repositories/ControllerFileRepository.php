@@ -43,4 +43,13 @@ class ControllerFileRepository implements IControllerFile
 
         return $controller_collection;
     }
+
+    public function delete($ControllerFileId)
+    {
+        $ControllerFileRecord = $this->model::where('ControllerFileId',$ControllerFileId)->first();
+        if($ControllerFileRecord == null) return null;
+        $ControllerFileRecord->delete();
+
+        return $ControllerFileRecord;
+    }
 }

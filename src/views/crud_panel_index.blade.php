@@ -147,7 +147,9 @@
                         <div class="list-group" >
                             <h3>Controllers</h3>
                             @foreach($controllerFiles as $controller_file)
-                                <div>{{ $controller_file->ControllerFileFilename }}</div>
+                                <div name="controllerFileFilename" id="{{ $controller_file->ControllerFileId }}">
+                                    {{ $controller_file->ControllerFileFilename }}
+                                </div>
                             @endforeach
                             <div class="btn-group" role="group" aria-label="Basic example" style="padding-top:5px;">
                                 <button type="button"
@@ -156,7 +158,7 @@
                                         data-toggle="modal"
                                         data-target="#controller_form">Add
                                 </button>
-                                <button type="button" class="btn btn-danger">Delete</button>
+                                <button type="button" name="btn_controller_delete" class="btn btn-danger">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -370,6 +372,42 @@
                     $('[name=ModelFileName]').removeClass('font-weight-bold');
                     $(this).addClass('font-weight-bold');
                     model_id_selected = $(this).attr('id');
+                });
+
+                // Controllers
+                $('[name=controllerFileFilename]').click(function () {
+                    $('[name=controllerFileFilename]').removeClass('font-weight-bold');
+                    $(this).addClass('font-weight-bold');
+                    controller_id_selected = $(this).attr('id');
+                });
+
+                $('button[name=btn_controller_delete]').click(function (event) {
+                    event.preventDefault();
+                    if(controller_id_selected == 0) return;
+
+                    $.ajaxSetup({
+                        headers:
+                            {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                    });
+
+                    jQuery.ajax({
+                        url: "crudpanel/controller/delete",
+                        method: 'post',
+                        data:
+                            {
+                                ControllerFileId: controller_id_selected,
+                            },
+                        success: function(response)
+                        {
+                            location.reload();
+                        },
+                        error: function (response)
+                        {
+                            location.reload();
+                        }
+                    });
                 });
 
 
