@@ -130,19 +130,29 @@
                             <th><b>Created</b></th>
                             <th><b>Updated</b></th>
                             <th><b> - </b></th>
+                            <th><b> - </b></th>
                         </tr>
                         @foreach($migration_files as $migration_file)
-                            <td>{{ $migration_file->MigrationFileName }}</td>
-                            <td>{{ $migration_file->MigrationTable }}</td>
-                            <td>{{ $migration_file->created_at }}</td>
-                            <td>{{ $migration_file->updated_at }}</td>
-                            <td>
-                                <button type="submit"
-                                        class="btn btn-danger"
-                                        name="btn_delete_field"
-                                        id={{ $migration_file->MigrationFileId }}
-                                >Delete Model</button>
-                            </td>
+                            <tr>
+                                <td>{{ $migration_file->MigrationFileName }}</td>
+                                <td>{{ $migration_file->MigrationTable }}</td>
+                                <td>{{ $migration_file->created_at }}</td>
+                                <td>{{ $migration_file->updated_at }}</td>
+                                <td>
+                                    <button type="submit"
+                                            class="btn btn-secondary"
+                                            name="btn_edit_migration"
+                                            id={{ $migration_file->MigrationFileId }}
+                                    >Edit</button>
+                                </td>
+                                <td>
+                                    <button type="submit"
+                                            class="btn btn-danger"
+                                            name="btn_delete_migration"
+                                            id={{ $migration_file->MigrationFileId }}
+                                    >Delete</button>
+                                </td>
+                            </tr>
                         @endforeach
                         </table>
               </div>
@@ -245,101 +255,19 @@
       <script>
             $(document).ready(function() {
 
-                // Models
-                $("button[name=btn_save_model]").click(function(event){
-                    event.preventDefault();
+                $('button[name=btn_edit_migration]').click(function () {
+                    var migration_id_selected = $(this).attr('id');
+                    console.log(migration_id_selected);
+                    if(migration_id_selected == 0) return;
 
-                    var el_model_form = $('#model_form');
-                    var el_alert_section = $('#alert_section');
-                    var el_alert_danger_section = $('#alert_danger_section');
-                    var model_name = $('input[name=cp_model_name]').val();
-
-                    var el_migration = $('input[name=chk_migration]')
-                    var create_migration = 0
-                    if(el_migration.is(":checked")) create_migration = 1;
-
-                    var el_controller = $('input[name=chk_controller]')
-                    var create_controller = 0
-                    if(el_controller.is(":checked")) create_controller = 1;
-
-                    $.ajaxSetup({
-                        headers:
-                        {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-
-                    jQuery.ajax({
-                        url: "crudpanel/model/create",
-                        method: 'post',
-                        data:
-                        {
-                            model_name: model_name,
-                            create_migration: create_migration,
-                            create_controller: create_controller
-                        },
-                        success: function(response)
-                        {
-                            el_model_form.modal('hide');
-
-                            el_alert_section.html(response.message);
-                            el_alert_section.removeClass('d-none');
-                        },
-                        error: function (response)
-                        {
-                            el_model_form.modal('hide');
-
-                            el_alert_danger_section.html(response.message);
-                            el_alert_danger_section.removeClass('d-none');
-                        }
-                    });
-
-                });
-
-
-                // Migrations
-                $("button[name=btn_save_migration]").click(function(event){
-                    event.preventDefault();
-
-                    var migration_name = $('input[name=cp_migration_table_name]').val();
-                    var el_migration_form = $('#migration_form');
-
-                    $.ajaxSetup({
-                        headers:
-                        {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-
-                    jQuery.ajax({
-                        url: "crudpanel/migration/create",
-                        method: 'post',
-                        data:
-                        {
-                            table_name: migration_name,
-                        },
-                        success: function(response)
-                        {
-                            console.log(response.data.MigrationFileId);
-                            open_migration_editor(response.data.MigrationFileId);
-                        },
-                        error: function (response)
-                        {
-                            el_model_form.modal('hide');
-
-                            el_alert_danger_section.html(response.message);
-                            el_alert_danger_section.removeClass('d-none');
-                        }
-                    });
-
+                    open_migration_editor(migration_id_selected);
                 });
 
                 function open_migration_editor( migration_file_id)
                 {
-                    let url = "crudpanel/migration/editor?migration_file_id=";
+                    let url = "/crudpanel/migration/editor?migration_file_id=";
                     url = url+migration_file_id;
                     window.location.href = url;
-
                 }
 
             });
