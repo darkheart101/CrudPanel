@@ -257,10 +257,39 @@
 
                 $('button[name=btn_edit_migration]').click(function () {
                     var migration_id_selected = $(this).attr('id');
-                    console.log(migration_id_selected);
                     if(migration_id_selected == 0) return;
 
                     open_migration_editor(migration_id_selected);
+                });
+
+                $('button[name=btn_delete_migration]').click(function (event) {
+                    event.preventDefault();
+                    var migration_id_selected = $(this).attr('id');
+                    if(migration_id_selected == 0) return;
+
+                    $.ajaxSetup({
+                        headers:
+                            {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                    });
+
+                    jQuery.ajax({
+                        url: "/crudpanel/migration/delete",
+                        method: 'post',
+                        data:
+                            {
+                                MigrationFileId: migration_id_selected,
+                            },
+                        success: function(response)
+                        {
+                            location.reload();
+                        },
+                        error: function (response)
+                        {
+                            alert(response.responseText);
+                        }
+                    });
                 });
 
                 function open_migration_editor( migration_file_id)

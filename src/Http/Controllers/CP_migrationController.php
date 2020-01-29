@@ -88,6 +88,18 @@ class CP_migrationController extends Controller
             compact('migration_record','tableFieldList', 'migrated'));
     }
 
+    public function delete(Request $request, IMigration $r_migration)
+    {
+        $migration_file_record = $this->r_migration_file->find_by_id($request->MigrationFileId);
+        if($this->migration_file_is_migrated($migration_file_record->MigrationFileName, $r_migration))
+        {
+            return response('File cannot be deleted! Already migrated',409);
+        }
+        $deletedRecord = $this->r_migration_file->delete($request->MigrationFileId);
+        unlink(database_path()."/migrations/".$deletedRecord->MigrationFileName.".php");
+        return $migration_file_record;
+    }
+
     /**
      * @param $filename
      * @param IMigration $r_migration

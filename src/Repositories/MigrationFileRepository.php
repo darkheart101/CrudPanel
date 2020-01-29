@@ -52,4 +52,12 @@ class MigrationFileRepository implements IMigrationFile
 
         return $migration_collection;
     }
+
+    public function delete($MigrationFileId)
+    {
+        $migration_record = $this->model::where('MigrationFileId', $MigrationFileId)->first();
+        if( $migration_record == null) return null;
+        $migration_record->delete();
+        return $migration_record;
+    }
 }

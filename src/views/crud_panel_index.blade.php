@@ -180,7 +180,7 @@
                                         data-target="#migration_form">Add
                                 </button>
                                 <button type="button" class="btn btn-secondary"  name="btn_edit_migration">Edit</button>
-                                <button type="button" class="btn btn-danger">Delete</button>
+                                <button type="button" class="btn btn-danger" name="btn_delete_migration">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -416,7 +416,6 @@
                     event.preventDefault();
 
                     var migration_name = $('input[name=cp_migration_table_name]').val();
-                    var el_migration_form = $('#migration_form');
 
                     $.ajaxSetup({
                         headers:
@@ -445,7 +444,35 @@
                             el_alert_danger_section.removeClass('d-none');
                         }
                     });
+                });
 
+                $('button[name=btn_delete_migration]').click(function (event) {
+                    event.preventDefault();
+                    if(migration_id_selected == 0) return;
+
+                    $.ajaxSetup({
+                        headers:
+                            {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                    });
+
+                    jQuery.ajax({
+                        url: "crudpanel/migration/delete",
+                        method: 'post',
+                        data:
+                            {
+                                MigrationFileId: migration_id_selected,
+                            },
+                        success: function(response)
+                        {
+                            location.reload();
+                        },
+                        error: function (response)
+                        {
+                            alert(response.responseText);
+                        }
+                    });
                 });
 
                 $('[name=MigrationFileName]').click(function () {

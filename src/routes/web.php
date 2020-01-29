@@ -15,6 +15,8 @@ Route::group(['namespace'=>'tkouleris\CrudPanel\Http\Controllers','middleware' =
     Route::post('crudpanel/migration/create', 'CP_migrationController@create_migration');
     Route::get('crudpanel/migration/editor', 'CP_migrationController@migration_editor');
     Route::get('crudpanel/migration/list', 'CP_migrationController@list');
+    Route::post('crudpanel/migration/delete', 'CP_migrationController@delete');
+
 
     // controllers
     Route::get('crudpanel/controller/list','CP_controllersController@list');
