@@ -281,6 +281,46 @@
         </div>
     </div>
 
+    <!-- Controller Form -->
+    <div class="modal" tabindex="-1" role="dialog" id="controller_form">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Controller Form</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="alert alert-danger" style="display:none"></div>
+                <form action="" method="post">
+                    <div class="modal-body">
+                        <!--  Controller Name -->
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"
+                                      style="min-width: 100px;"
+                                      id="inputGroup-sizing-default">Controller Name
+                                </span>
+                            </div>
+                            <input type="text"
+                                   class="form-control"
+                                   aria-label="Default"
+                                   aria-describedby="inputGroup-sizing-default"
+                                   name="cp_controller_name"
+                                   id="cp_controller_name"
+                            >
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" name="btn_save_controller" id="btn_save_migration">Create Controller</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="hidden" name="migration_token" value="{{ csrf_token() }}">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
       <script>
             $(document).ready(function() {
 
@@ -379,6 +419,38 @@
                     $('[name=controllerFileFilename]').removeClass('font-weight-bold');
                     $(this).addClass('font-weight-bold');
                     controller_id_selected = $(this).attr('id');
+                });
+
+
+                $("button[name=btn_save_controller]").click(function(event) {
+                    event.preventDefault();
+                    var controller_name = $('input[name=cp_controller_name]').val();
+
+                    $.ajaxSetup({
+                        headers:
+                            {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                    });
+
+                    jQuery.ajax({
+                        url: "crudpanel/controller/create",
+                        method: 'post',
+                        data:
+                            {
+                                ControllerName: controller_name,
+                            },
+                        success: function(response)
+                        {
+                            location.reload();
+                        },
+                        error: function (response)
+                        {
+                            location.reload();
+                        }
+                    });
+
+
                 });
 
                 $('button[name=btn_controller_delete]').click(function (event) {

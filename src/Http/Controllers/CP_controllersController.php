@@ -4,6 +4,7 @@ namespace tkouleris\CrudPanel\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use tkouleris\CrudPanel\File\FileCreator;
 use tkouleris\CrudPanel\Repositories\Interfaces\IControllerFile;
 
 class CP_controllersController extends Controller
@@ -15,6 +16,16 @@ class CP_controllersController extends Controller
         $this->r_controller_file = $r_controller_file;
     }
 
+    public function create(Request $request, FileCreator $file_creator)
+    {
+        $controller_name = $request->ControllerName.'Controller';
+        $controller_output = $file_creator->controller( $controller_name );
+        $message = $controller_output['message'];
+
+        $ins_controller_args = array();
+        $ins_controller_args['ControllerFileFilename'] = $controller_name;
+        return $this->r_controller_file->create($ins_controller_args);
+    }
 
     public function list()
     {

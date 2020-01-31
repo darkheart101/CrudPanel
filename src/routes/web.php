@@ -20,6 +20,7 @@ Route::group(['namespace'=>'tkouleris\CrudPanel\Http\Controllers','middleware' =
 
     // controllers
     Route::get('crudpanel/controller/list','CP_controllersController@list');
+    Route::post('crudpanel/controller/create','CP_controllersController@create');
     Route::post('crudpanel/controller/delete','CP_controllersController@delete');
 
     // table fields
