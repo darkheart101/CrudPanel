@@ -15,5 +15,12 @@
         "psr-4": {
             "tkouleris\\CrudPanel\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": {
+                "tkouleris\\CrudPanel\\CrudPanelServiceProvider"
+            }
+        }
     }
 }
