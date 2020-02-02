@@ -14,9 +14,21 @@ use tkouleris\CrudPanel\Repositories\Interfaces\IControllerFile;
 use tkouleris\CrudPanel\Repositories\Interfaces\IMigrationFile;
 use tkouleris\CrudPanel\Repositories\Interfaces\IModelFile;
 use tkouleris\CrudPanel\Repositories\Interfaces\ITableField;
+use tkouleris\CrudPanel\Services\ControllerService;
 
 class CrudPanelController extends Controller
 {
+    protected $controller_service;
+
+    /**
+     * CrudPanelController constructor.
+     * @param $controller_service
+     */
+    public function __construct(ControllerService $controller_service)
+    {
+        $this->controller_service = $controller_service;
+    }
+
 
     /**
      * @param IModelFile $r_model_file
@@ -107,13 +119,8 @@ class CrudPanelController extends Controller
 
         if( $request->create_controller == 1)
         {
-            $controller_name = $request->model_name.'Controller';
-            $controller_output = $file_creator->controller( $controller_name );
-            $message = $controller_output['message'];
-
-            $ins_controller_args = array();
-            $ins_controller_args['ControllerFileFilename'] = $controller_name;
-            $r_controller_file->create($ins_controller_args);
+            $output = $this->controller_service->create($request->model_name);
+            $message .= $output['message'];
         }
 
 
