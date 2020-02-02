@@ -2,104 +2,75 @@
 
 namespace tkouleris\CrudPanel\Http\Controllers;
 
-use Illuminate\Database\Migrations\MigrationRepositoryInterface;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Artisan;
 use stdClass;
 
 use tkouleris\CrudPanel\File\FileEditor;
 use tkouleris\CrudPanel\File\FileCreator;
-use tkouleris\CrudPanel\Repositories\Interfaces\IControllerFile;
 use tkouleris\CrudPanel\Repositories\Interfaces\IMigrationFile;
-use tkouleris\CrudPanel\Repositories\Interfaces\IModelFile;
 use tkouleris\CrudPanel\Repositories\Interfaces\ITableField;
 use tkouleris\CrudPanel\Services\ControllerService;
+use tkouleris\CrudPanel\Services\ModelService;
 
 class CrudPanelController extends Controller
 {
     protected $controller_service;
+    protected $model_service;
 
     /**
      * CrudPanelController constructor.
-     * @param $controller_service
+     * @param ControllerService $controller_service
+     * @param ModelService $model_service
      */
-    public function __construct(ControllerService $controller_service)
+    public function __construct(ControllerService $controller_service, ModelService $model_service)
     {
         $this->controller_service = $controller_service;
+        $this->model_service = $model_service;
     }
 
 
     /**
-     * @param IModelFile $r_model_file
      * @param IMigrationFile $r_migration_file
-     * @param IControllerFile $r_controller_file
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(IModelFile $r_model_file, IMigrationFile $r_migration_file, IControllerFile $r_controller_file)
+    public function index(IMigrationFile $r_migration_file)
     {
         $filter = new stdClass();
         $filter->limit = 5;
-        $modelFiles = $r_model_file->list($filter);
 
+        $modelFiles = $this->model_service->list($filter);
         $migrationFiles = $r_migration_file->list( $filter );
-
-        $controllerFiles = $r_controller_file->list( $filter );
+        $controllerFiles = $this->controller_service->list($filter);
 
         return view('CrudPanel::crud_panel_index',compact('modelFiles','migrationFiles','controllerFiles'));
     }
-
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function modelsIndex()
-    {
-        return view('CrudPanel::crud_panel_models');
-    }
+    
 
     // Other Requests
 
     /**
      *  creates new model
      * @param Request $request
-     * @param IModelFile $r_model_file
      * @param IMigrationFile $r_migration_file
-     * @param IControllerFile $r_controller_file
      * @param FileCreator $file_creator
      * @return mixed
      */
-    public function create_model(Request $request,
-        IModelFile $r_model_file,
-        IMigrationFile $r_migration_file,
-        IControllerFile $r_controller_file,
-        FileCreator $file_creator
-    ){
-        if(($request->model_name == null) || (!$request->has('model_name')) )
+    public function create_model(Request $request, IMigrationFile $r_migration_file, FileCreator $file_creator)
+    {
+        $validation = $this->validate_create_model_request($request);
+        if($validation['success'] = false)
         {
             $results['success'] = false;
-            $results['message'] = "No model name selected!";
+            $results['message'] = $validation['message'];
             return $results;
         }
-
-        if ($request->model_name == trim($request->model_name) && strpos($request->model_name, ' ') !== false) {
-            $results['success'] = false;
-            $results['message'] = "Model name must not contain spaces!";
-            return $results;
-        }
-
-        $model = $r_model_file->find_by_filename($request->model_name);
-        if( $model == null)
-        {
-            $data = [
-                'ModelFileName' =>$request->model_name
-            ];
-            $model_record = $r_model_file->create($data);
-        }
-
-        $file_creator->model($request->model_name);
 
         $message = "";
+        $model_creation_output = $this->model_service->create($request->model_name);
+        $message .= $model_creation_output['message'];
+
 
         if( $request->create_migration == 1)
         {
@@ -181,4 +152,24 @@ class CrudPanelController extends Controller
 
         $file_editor->delete_line( $file, $linenumber);
     }
+
+    private function validate_create_model_request($request)
+    {
+        if(($request->model_name == null) || (!$request->has('model_name')) )
+        {
+            $results['success'] = false;
+            $results['message'] = "No model name selected!";
+            return $results;
+        }
+
+        if ($request->model_name == trim($request->model_name) && strpos($request->model_name, ' ') !== false) {
+            $results['success'] = false;
+            $results['message'] = "Model name must not contain spaces!";
+            return $results;
+        }
+
+        $results['success'] = true;
+        return $results;
+    }
+
 }

@@ -109,16 +109,6 @@
 
               <div>
                 <div class="container">
-                    <div class="d-none alert alert-primary"
-                         id="alert_section"
-                         name="alert_section"
-                         role="alert">
-                    </div>
-                    <div class="d-none alert alert-danger"
-                         id="alert_danger_section"
-                         name="alert_danger_section"
-                         role="alert">
-                    </div>
                     <div class="row" style="padding-top:10px;">
 
                     <!-- Models List -->
@@ -332,9 +322,6 @@
                 $("button[name=btn_save_model]").click(function(event){
                     event.preventDefault();
 
-                    var el_model_form = $('#model_form');
-                    var el_alert_section = $('#alert_section');
-                    var el_alert_danger_section = $('#alert_danger_section');
                     var model_name = $('input[name=cp_model_name]').val();
 
                     var el_migration = $('input[name=chk_migration]')
@@ -363,17 +350,11 @@
                         },
                         success: function(response)
                         {
-                            el_model_form.modal('hide');
-
-                            el_alert_section.html(response.message);
-                            el_alert_section.removeClass('d-none');
+                            location.reload();
                         },
                         error: function (response)
                         {
-                            el_model_form.modal('hide');
-
-                            el_alert_danger_section.html(response.message);
-                            el_alert_danger_section.removeClass('d-none');
+                            location.reload();
                         }
                     });
 

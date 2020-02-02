@@ -48,9 +48,9 @@ class ControllerService
         return $output;
     }
 
-    public function list()
+    public function list($filter = null)
     {
-        return $controllerFiles = $this->R_ControllerFile->list();
+        return $controllerFiles = $this->R_ControllerFile->list($filter);
     }
 
 
