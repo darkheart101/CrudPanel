@@ -18,9 +18,9 @@
     },
     "extra": {
         "laravel": {
-            "providers": {
+            "providers": [
                 "tkouleris\\CrudPanel\\CrudPanelServiceProvider"
-            }
+            ]
         }
     }
 }
