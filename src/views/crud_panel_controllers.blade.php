@@ -131,16 +131,18 @@
                             <th><b> - </b></th>
                         </tr>
                         @foreach($controllerFiles as $controller)
-                            <td>{{ $controller->ControllerFileFilename }}</td>
-                            <td>{{ $controller->created_at }}</td>
-                            <td>{{ $controller->updated_at }}</td>
-                            <td>
-                                <button type="submit"
-                                        class="btn btn-danger"
-                                        name="btn_delete_controller"
-                                        id={{ $controller->ControllerFileId }}
-                                >Delete Controller</button>
+                            <tr>
+                                <td>{{ $controller->ControllerFileFilename }}</td>
+                                <td>{{ $controller->created_at }}</td>
+                                <td>{{ $controller->updated_at }}</td>
+                                <td>
+                                    <button type="submit"
+                                            class="btn btn-danger"
+                                            name="btn_delete_controller"
+                                            id={{ $controller->ControllerFileId }}
+                                    >Delete Controller</button>
                             </td>
+                            </tr>
                         @endforeach
                         </table>
               </div>

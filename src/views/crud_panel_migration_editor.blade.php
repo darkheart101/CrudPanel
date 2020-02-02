@@ -295,19 +295,10 @@
                                 <option id='year'>year</option>
                             </select>
                         </div>
-                        {{-- <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="chk_migration" name="chk_migration">
-                            <label class="form-check-label" for="chk_migration">create migration </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="chk_controller" name="chk_controller">
-                            <label class="form-check-label" for="chk_controller">create controller </label>
-                        </div> --}}
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary" name="btn_save_field" id="btn_save_field">Save Field</button>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        {{-- <input type="hidden" name="_token" value="{{csrf_token()}}"> --}}
                     </div>
                 </form>
             </div>

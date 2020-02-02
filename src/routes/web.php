@@ -4,10 +4,10 @@ use Illuminate\Http\Request;
 
 Route::group(['namespace'=>'tkouleris\CrudPanel\Http\Controllers','middleware' => 'web'], function(){
 
-    Route::get('crudpanel', 'CrudPanelController@index');
+    Route::get('crudpanel', 'CP_indexController@index');
 
     // models
-    Route::post('crudpanel/model/create', 'CrudPanelController@create_model'); // Must go to models controller
+    Route::post('crudpanel/model/create', 'CP_indexController@create_model'); // Must go to models controller
     Route::get('crudpanel/model/list','CP_modelsController@list');
     Route::post('crudpanel/model/delete','CP_modelsController@delete');
 
@@ -24,10 +24,7 @@ Route::group(['namespace'=>'tkouleris\CrudPanel\Http\Controllers','middleware' =
     Route::post('crudpanel/controller/delete','CP_controllersController@delete');
 
     // table fields
-    Route::post('crudpanel/tablefields/create', 'CrudPanelController@create_table_field');
-    Route::delete('crudpanel/tablefields/delete/{id}', 'CrudPanelController@delete_table_field');
-
-    Route::get('crudpaneltest','CrudPanelController@testIndex');
-    Route::get('crudpanel/models','CrudPanelController@modelsIndex');
+    Route::post('crudpanel/tablefields/create', 'CP_migrationController@create_table_field');
+    Route::delete('crudpanel/tablefields/delete/{id}', 'CP_migrationController@delete_table_field');
 });
 
