@@ -139,7 +139,7 @@
                                         class="btn btn-danger"
                                         name="btn_delete_controller"
                                         id={{ $controller->ControllerFileId }}
-                                >Delete Model</button>
+                                >Delete Controller</button>
                             </td>
                         @endforeach
                         </table>
@@ -149,96 +149,6 @@
           </main>
       </div>
     </body>
-
-    <!-- Forms -->
-
-    <!-- Model Form -->
-    <div class="modal" tabindex="-1" role="dialog" id="model_form">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Model Form</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="alert alert-danger" style="display:none"></div>
-                <form action="" method="post">
-                    <div class="modal-body">
-                        <!-- Model Name -->
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"
-                                      style="min-width: 100px;"
-                                      id="inputGroup-sizing-default">Model Name
-                                </span>
-                            </div>
-                            <input type="text"
-                                   class="form-control"
-                                   aria-label="Default"
-                                   aria-describedby="inputGroup-sizing-default"
-                                   name="cp_model_name"
-                                   id="cp_model_name"
-                            >
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="chk_migration" name="chk_migration">
-                            <label class="form-check-label" for="chk_migration">create migration </label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="chk_controller" name="chk_controller">
-                            <label class="form-check-label" for="chk_controller">create controller </label>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" name="btn_save_model" id="btn_save_model">Save Model</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        {{-- <input type="hidden" name="_token" value="{{csrf_token()}}"> --}}
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Migration Form -->
-    <div class="modal" tabindex="-1" role="dialog" id="migration_form">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Model Form</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="alert alert-danger" style="display:none"></div>
-                <form action="" method="post">
-                    <div class="modal-body">
-                        <!--  Migration Table Name -->
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"
-                                      style="min-width: 100px;"
-                                      id="inputGroup-sizing-default">Table Name
-                                </span>
-                            </div>
-                            <input type="text"
-                                   class="form-control"
-                                   aria-label="Default"
-                                   aria-describedby="inputGroup-sizing-default"
-                                   name="cp_migration_table_name"
-                                   id="cp_migration_table_name"
-                            >
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" name="btn_save_migration" id="btn_save_migration">Create Migration File</button>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <input type="hidden" name="migration_token" value="{{ csrf_token() }}">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
       <script>
             $(document).ready(function() {
