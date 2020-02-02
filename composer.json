@@ -1,8 +1,8 @@
 {
     "name": "tkouleris/crud-panel",
-    "description": "Create Models, Migrations, Controllers and Repositories with simple click",
+    "description": "Create Models, Migrations, Controllers with simple click",
     "type": "library",
-    "license": "GPLv3",
+    "license": "MIT",
     "authors": [
         {
             "name": "darkheart101",
